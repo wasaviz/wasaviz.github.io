@@ -76,6 +76,38 @@
                 .attr("class", "line")
                 .attr("d", line);
                 
+            
+            var formatDecimal = d3.format(".1f")
+                
+            g.selectAll("circle").data(data).enter().append("circle")
+				.attr("cx",function(d,i) { return x(d.date)})
+				.attr("cy",function(d,i) { return height - y(d.temperature)})
+				.attr("r",2)
+				.style("fill","darkRed")
+				.on("mouseover", function(d,i) {
+				  d3.select(this)
+					.style("fill","lightGray")
+						.attr("r",5);
+				
+				  g.selectAll("#tooltip").data([d]).enter().append("text")
+					.attr("id", "tooltip")
+					.text(function(d, i) {return formatDecimal(d.temperature); })
+					.attr("y", function(d) {return height - y(d.temperature) - 25})
+					.attr("x", function(d) { return x(d.date) - 7; })
+					.style("font_size",15)
+					.style("font-family", "monospace")
+					.style("color",'#222')
+					.style('background-color', '#fff')
+					.style('padding', '.5em');
+				})
+				.on("mouseout",function(d,i) {
+				  d3.select(this).transition().duration(300)
+					.style("fill","darkRed")
+					.attr("r",2)
+				
+				  g.selectAll("#tooltip").transition().duration(300).remove();
+				});
+
             g.append("text")
 				.attr("x", width/4.5)
 				.attr("y", 350)
