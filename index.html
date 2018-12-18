@@ -34,42 +34,43 @@
         .attr("height", 500);
 
     var width = 800;
-    var height = 400;
+    var height = 500;
 
     var parseDate = d3.timeParse("%Y-%m-%d");
-    var displayDate = d3.timeFormat("%U");
+    var displayDate = d3.timeFormat("%Y-%m-%d");
 
     var g = svg.append("g")
         .attr("transform", "translate(50, 0)");
 
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip hidden")
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("font_size", 15)
+        .style("font-family", "monospace")
+        .style("color", '#222')
+        .style('background-color', '#fff')
+        .style('padding', '.5em');
+
 
     d3.csv("newData.csv", function (data) {
-		
-        //console.log(data)
+
         let ville;
         // Pre-processing
         data.forEach(function (d, i) {
             d.date = parseDate(d.Date);
             d.temperature = +d.Temperature;
-            d.IDStation = +d.IDStation;            
-            
+            d.IDStation = +d.IDStation;
         });
         
         data = data.filter(function (d) {
             return d.IDStation === region;
         });
-        
-        data.forEach(function (d, i) {
-            
-            if(i == 0){
-				console.log(d.NomLieu)
-				ville = d.NomLieu;
-			}
-            
-        });
+        ville = data[0].NomLieu;
 
         d3.select("#title")
-                .text("Temperature in station n°" + region + " : "+ ville);
+            .text("Temperature in station n°" + region + " : " + ville);
 
 
         // Ordinal scale
@@ -81,7 +82,7 @@
 
         // Linear scale
         var y = d3.scaleLinear()
-            .range([0, height])
+            .range([0, height - 30])
             .domain(d3.extent(data, function (d) {
                 return d.temperature;
             }));
@@ -120,32 +121,18 @@
                     .style("fill", "lightGray")
                     .attr("r", 5);
 
-                g.selectAll("#tooltip")
-                    .data([d])
-                    .enter()
-                    .append("text")
-                    .attr("id", "tooltip")
-                    .text(function (d, i) {
-                        return formatDecimal(d.temperature);
-                    })
-                    .attr("y", function (d) {
-                        return height - y(d.temperature) - 25
-                    })
-                    .attr("x", function (d) {
-                        return x(d.date) - 7;
-                    })
-                    .style("font_size", 15)
-                    .style("font-family", "monospace")
-                    .style("color", '#222')
-                    .style('background-color', '#fff')
-                    .style('padding', '.5em');
+                var mouse = d3.mouse(this);
+                tooltip.classed('hidden', false)
+                    .attr('style', 'position: absolute; left:' + (mouse[0] + 30) +
+                        'px; top:' + (mouse[1] + 130) + 'px')
+                    .html(formatDecimal(d.temperature) + " <br> " + displayDate(d.date));
             })
             .on("mouseout", function (d, i) {
                 d3.select(this).transition().duration(300)
                     .style("fill", "darkRed")
                     .attr("r", 2)
 
-                g.selectAll("#tooltip").transition().duration(300).remove();
+                tooltip.classed('hidden', true);
             });
     });
 
@@ -168,9 +155,6 @@
 				}
                 
             });
-
-            
-            console.log(ville)
 
             // Change the line
             // Ordinal scale
@@ -197,7 +181,7 @@
 
             d3.select("#line")
                 .transition()
-                .duration(150)
+                .duration(300)
                 .attr("d", line(data));
 
             // Change the points
@@ -207,7 +191,8 @@
             var circles = d3.select("g").selectAll("circle").data(data);
 
             circles.exit().remove();
-            circles.enter()
+            circles.data(data)
+                .enter()
                 .append("circle")
                 .attr("cx", function (d, i) {
                     return x(d.date)
@@ -222,74 +207,29 @@
                         .style("fill", "lightGray")
                         .attr("r", 5);
 
-                    g.selectAll("#tooltip")
-                        .data([d])
-                        .enter()
-                        .append("text")
-                        .attr("id", "tooltip")
-                        .text(function (d, i) {
-                            return formatDecimal(d.temperature);
-                        })
-                        .attr("y", function (d) {
-                            return height - y(d.temperature) - 25
-                        })
-                        .attr("x", function (d) {
-                            return x(d.date) - 7;
-                        })
-                        .style("font_size", 15)
-                        .style("font-family", "monospace")
-                        .style("color", '#222')
-                        .style('background-color', '#fff')
-                        .style('padding', '.5em');
+                    var mouse = d3.mouse(this);
+                    tooltip.classed('hidden', false)
+                        .attr('style', 'position: absolute; left:' + (mouse[0] + 15) +
+                            'px; top:' + (mouse[1] - 35) + 'px')
+                        .html(formatDecimal(d.temperature) + " <br> " + displayDate(d.date));
                 })
                 .on("mouseout", function (d, i) {
                     d3.select(this).transition().duration(300)
                         .style("fill", "darkRed")
                         .attr("r", 2)
 
-                    g.selectAll("#tooltip").transition().duration(300).remove();
+                    tooltip.classed('hidden', true);
                 });
-            circles.attr("cx", function (d, i) {
+
+            circles.data(data)
+                .transition()
+                .duration(300)
+                .attr("cx", function (d, i) {
                 return x(d.date)
-            })
+                })
                 .attr("cy", function (d, i) {
                     return height - y(d.temperature)
-                })
-                .attr("r", 2)
-                .style("fill", "darkRed")
-                .on("mouseover", function (d, i) {
-                    d3.select(this)
-                        .style("fill", "lightGray")
-                        .attr("r", 5);
-
-                    g.selectAll("#tooltip")
-                        .data([d])
-                        .enter()
-                        .append("text")
-                        .attr("id", "tooltip")
-                        .text(function (d, i) {
-                            return formatDecimal(d.temperature);
-                        })
-                        .attr("y", function (d) {
-                            return height - y(d.temperature) - 25
-                        })
-                        .attr("x", function (d) {
-                            return x(d.date) - 7;
-                        })
-                        .style("font_size", 15)
-                        .style("font-family", "monospace")
-                        .style("color", '#222')
-                        .style('background-color', '#fff')
-                        .style('padding', '.5em');
-                })
-                .on("mouseout", function (d, i) {
-                    d3.select(this).transition().duration(300)
-                        .style("fill", "darkRed")
-                        .attr("r", 2)
-
-                    g.selectAll("#tooltip").transition().duration(300).remove();
                 });
-            circles.transition().duration(150);
 
             // Change title
             d3.select("#title")
