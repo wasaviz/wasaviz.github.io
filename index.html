@@ -18,7 +18,7 @@
 
 <p>A visualization of water and temperature changes in France by regions, from 2010 to 2018.</p>
 
-<input type="number" min="0" onchange="refreshView(this.value)" value="7149">
+<select id="station" onchange="refreshView(this.value)"></select>
 
 <script>
 
@@ -63,6 +63,19 @@
             d.temperature = +d.Temperature;
             d.IDStation = +d.IDStation;
         });
+
+        // Création du selecteur
+        var regions = [];
+        var select = document.getElementById("station");
+        for (var i = 0; i < data.length; i++) {
+            if (!regions.includes(data[i].IDStation)) {
+                regions.push(data[i].IDStation);
+                var option = document.createElement("option");
+                option.value = data[i].IDStation;
+                option.text = data[i].NomLieu;
+                select.appendChild(option);
+            }
+        }
         
         data = data.filter(function (d) {
             return d.IDStation === region;
@@ -125,7 +138,7 @@
                 tooltip.classed('hidden', false)
                     .attr('style', 'position: absolute; left:' + (mouse[0] + 30) +
                         'px; top:' + (mouse[1] + 130) + 'px')
-                    .html(formatDecimal(d.temperature) + " <br> " + displayDate(d.date));
+                    .html(formatDecimal(d.temperature) + " °C <br> " + displayDate(d.date));
             })
             .on("mouseout", function (d, i) {
                 d3.select(this).transition().duration(300)
@@ -135,7 +148,6 @@
                 tooltip.classed('hidden', true);
             });
     });
-
 
     function refreshView(region) {
 
@@ -211,7 +223,7 @@
                     tooltip.classed('hidden', false)
                         .attr('style', 'position: absolute; left:' + (mouse[0] + 15) +
                             'px; top:' + (mouse[1] - 35) + 'px')
-                        .html(formatDecimal(d.temperature) + " <br> " + displayDate(d.date));
+                        .html(formatDecimal(d.temperature) + " °C <br> " + displayDate(d.date));
                 })
                 .on("mouseout", function (d, i) {
                     d3.select(this).transition().duration(300)
