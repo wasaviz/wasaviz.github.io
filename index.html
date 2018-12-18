@@ -14,109 +14,268 @@
 </head>
 <body>
 
-    <h1>Rain, wind, snow: how has climate changed in France from 2010 to 2018?</h1>
+<h1>Rain, wind, snow: how has climate changed in France from 2010 to 2018?</h1>
 
-    <p>A visualization of water and temperature changes in France by regions, from 2010 to 2018.</p>
+<p>A visualization of water and temperature changes in France by regions, from 2010 to 2018.</p>
 
-    <script>
+<input type="number" min="0" onchange="refreshView(this.value)" value="7149">
 
-        var svg = d3.select("body").append("svg")
-            .attr("width", 960)
-            .attr("height", 500);
+<script>
 
-        var width = 800;
-        var height = 400;
+    region = 7149;
 
-        var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
-        var displayDate = d3.timeFormat("%U");
+    d3.select("body")
+        .append("h2")
+        .attr("id", "title")
+        .text("Temperature in station n°" + region + ".");
 
-        var g = svg.append("g")
-            .attr("transform", "translate(50, 0)");
+    var svg = d3.select("body").append("svg")
+        .attr("width", 960)
+        .attr("height", 500);
+
+    var width = 800;
+    var height = 400;
+
+    var parseDate = d3.timeParse("%Y-%m-%d");
+    var displayDate = d3.timeFormat("%U");
+
+    var g = svg.append("g")
+        .attr("transform", "translate(50, 0)");
 
 
-        d3.csv("newData.csv", function(data) {
+    d3.csv("newData.csv", function (data) {
 
-            // Pre-processing
-            data.forEach(function(d) {
-                d.date = parseDate(d.Date);
-                d.temperature = +d.Temperature;
-                //console.log(d.date)
+        // Pre-processing
+        data.forEach(function (d) {
+            d.date = parseDate(d.Date);
+            d.temperature = +d.Temperature;
+            d.IDStation = +d.IDStation;
+        });
+
+        data = data.filter(function (d) {
+            return d.IDStation === region;
+        });
+
+
+        // Ordinal scale
+        var x = d3.scaleTime()
+            .range([0, width])
+            .domain(d3.extent(data, function (d) {
+                return d.date;
+            }));
+
+        // Linear scale
+        var y = d3.scaleLinear()
+            .range([0, height])
+            .domain(d3.extent(data, function (d) {
+                return d.temperature;
+            }));
+
+
+        //Affichage de la courbe
+        var line = d3.line()
+            .x(function (d) {
+                return x(d.date);
+            })
+            .y(function (d) {
+                return height - y(d.temperature);
             });
 
+        g.append("path")
+            .attr("id", "line")
+            .attr("d", line(data));
 
+
+        var formatDecimal = d3.format(".1f")
+
+        g.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d, i) {
+                return x(d.date)
+            })
+            .attr("cy", function (d, i) {
+                return height - y(d.temperature)
+            })
+            .attr("r", 2)
+            .style("fill", "darkRed")
+            .on("mouseover", function (d, i) {
+                d3.select(this)
+                    .style("fill", "lightGray")
+                    .attr("r", 5);
+
+                g.selectAll("#tooltip")
+                    .data([d])
+                    .enter()
+                    .append("text")
+                    .attr("id", "tooltip")
+                    .text(function (d, i) {
+                        return formatDecimal(d.temperature);
+                    })
+                    .attr("y", function (d) {
+                        return height - y(d.temperature) - 25
+                    })
+                    .attr("x", function (d) {
+                        return x(d.date) - 7;
+                    })
+                    .style("font_size", 15)
+                    .style("font-family", "monospace")
+                    .style("color", '#222')
+                    .style('background-color', '#fff')
+                    .style('padding', '.5em');
+            })
+            .on("mouseout", function (d, i) {
+                d3.select(this).transition().duration(300)
+                    .style("fill", "darkRed")
+                    .attr("r", 2)
+
+                g.selectAll("#tooltip").transition().duration(300).remove();
+            });
+    });
+
+
+    function refreshView(region) {
+
+        d3.csv("newData.csv", function (data) {
+
+            // Pre-processing
+            data.forEach(function (d) {
+                d.date = parseDate(d.Date);
+                d.temperature = +d.Temperature;
+                d.IDStation = +d.IDStation;
+            });
+
+            data = data.filter(function (d) {
+                return d.IDStation == region;
+            });
+
+            // Change the line
             // Ordinal scale
             var x = d3.scaleTime()
                 .range([0, width])
-                .domain(d3.extent(data, function(d) { return d.date; }));
+                .domain(d3.extent(data, function (d) {
+                    return d.date;
+                }));
 
             // Linear scale
             var y = d3.scaleLinear()
                 .range([0, height])
-                .domain([d3.min(data, function(d) { return d.temperature; }), d3.max(data, function(d) { return d.temperature; })]);
+                .domain(d3.extent(data, function (d) {
+                    return d.temperature;
+                }));
 
-            /*g.selectAll("rect")
-                .data(data)
-                .enter()
-                .append("rect")
-                .attr("x", function(d, i) { return x(d.date); })
-                .attr("y", function(d) { return height - y(d.temperature); })
-                .attr("height", function(d) { return y(d.temperature); })
-                .attr("width", width / data.length);*/
-
-
-            //Affichage de la courbe
             var line = d3.line()
-                .x(function(d) { return x(d.date); })
-                .y(function(d) { return height - y(d.temperature); });
+                .x(function (d) {
+                    return x(d.date);
+                })
+                .y(function (d) {
+                    return height - y(d.temperature);
+                });
 
-            g.selectAll(".line")
-                .data([data])
-                .enter()
-                .append("path")
-                .attr("class", "line")
-                .attr("d", line);
-                
-            
+            d3.select("#line")
+                .transition()
+                .duration(150)
+                .attr("d", line(data));
+
+            // Change the points
             var formatDecimal = d3.format(".1f")
-                
-            g.selectAll("circle").data(data).enter().append("circle")
-				.attr("cx",function(d,i) { return x(d.date)})
-				.attr("cy",function(d,i) { return height - y(d.temperature)})
-				.attr("r",2)
-				.style("fill","darkRed")
-				.on("mouseover", function(d,i) {
-				  d3.select(this)
-					.style("fill","lightGray")
-						.attr("r",5);
-				
-				  g.selectAll("#tooltip").data([d]).enter().append("text")
-					.attr("id", "tooltip")
-					.text(function(d, i) {return formatDecimal(d.temperature); })
-					.attr("y", function(d) {return height - y(d.temperature) - 25})
-					.attr("x", function(d) { return x(d.date) - 7; })
-					.style("font_size",15)
-					.style("font-family", "monospace")
-					.style("color",'#222')
-					.style('background-color', '#fff')
-					.style('padding', '.5em');
-				})
-				.on("mouseout",function(d,i) {
-				  d3.select(this).transition().duration(300)
-					.style("fill","darkRed")
-					.attr("r",2)
-				
-				  g.selectAll("#tooltip").transition().duration(300).remove();
-				});
 
-            g.append("text")
-				.attr("x", width/4.5)
-				.attr("y", 350)
-				.text("Temperature in Orly from 01/11/18 until today")
-				.style('fill', 'darkRed')
-				.style('font-weight', 'bold')
+
+            var circles = d3.select("g").selectAll("circle").data(data);
+
+            circles.exit().remove();
+            circles.enter()
+                .append("circle")
+                .attr("cx", function (d, i) {
+                    return x(d.date)
+                })
+                .attr("cy", function (d, i) {
+                    return height - y(d.temperature)
+                })
+                .attr("r", 2)
+                .style("fill", "darkRed")
+                .on("mouseover", function (d, i) {
+                    d3.select(this)
+                        .style("fill", "lightGray")
+                        .attr("r", 5);
+
+                    g.selectAll("#tooltip")
+                        .data([d])
+                        .enter()
+                        .append("text")
+                        .attr("id", "tooltip")
+                        .text(function (d, i) {
+                            return formatDecimal(d.temperature);
+                        })
+                        .attr("y", function (d) {
+                            return height - y(d.temperature) - 25
+                        })
+                        .attr("x", function (d) {
+                            return x(d.date) - 7;
+                        })
+                        .style("font_size", 15)
+                        .style("font-family", "monospace")
+                        .style("color", '#222')
+                        .style('background-color', '#fff')
+                        .style('padding', '.5em');
+                })
+                .on("mouseout", function (d, i) {
+                    d3.select(this).transition().duration(300)
+                        .style("fill", "darkRed")
+                        .attr("r", 2)
+
+                    g.selectAll("#tooltip").transition().duration(300).remove();
+                });
+            circles.attr("cx", function (d, i) {
+                return x(d.date)
+            })
+                .attr("cy", function (d, i) {
+                    return height - y(d.temperature)
+                })
+                .attr("r", 2)
+                .style("fill", "darkRed")
+                .on("mouseover", function (d, i) {
+                    d3.select(this)
+                        .style("fill", "lightGray")
+                        .attr("r", 5);
+
+                    g.selectAll("#tooltip")
+                        .data([d])
+                        .enter()
+                        .append("text")
+                        .attr("id", "tooltip")
+                        .text(function (d, i) {
+                            return formatDecimal(d.temperature);
+                        })
+                        .attr("y", function (d) {
+                            return height - y(d.temperature) - 25
+                        })
+                        .attr("x", function (d) {
+                            return x(d.date) - 7;
+                        })
+                        .style("font_size", 15)
+                        .style("font-family", "monospace")
+                        .style("color", '#222')
+                        .style('background-color', '#fff')
+                        .style('padding', '.5em');
+                })
+                .on("mouseout", function (d, i) {
+                    d3.select(this).transition().duration(300)
+                        .style("fill", "darkRed")
+                        .attr("r", 2)
+
+                    g.selectAll("#tooltip").transition().duration(300).remove();
+                });
+            circles.transition().duration(150);
+
+            // Change title
+            d3.select("#title")
+                .text("Temperature in station n°" + region + ".");
         });
+    }
 
-    </script>
+</script>
 
 </body>
 </html>
