@@ -44,17 +44,32 @@
 
 
     d3.csv("newData.csv", function (data) {
-
+		
+        //console.log(data)
+        let ville;
         // Pre-processing
-        data.forEach(function (d) {
+        data.forEach(function (d, i) {
             d.date = parseDate(d.Date);
             d.temperature = +d.Temperature;
-            d.IDStation = +d.IDStation;
+            d.IDStation = +d.IDStation;            
+            
         });
-
+        
         data = data.filter(function (d) {
             return d.IDStation === region;
         });
+        
+        data.forEach(function (d, i) {
+            
+            if(i == 0){
+				console.log(d.NomLieu)
+				ville = d.NomLieu;
+			}
+            
+        });
+
+        d3.select("#title")
+                .text("Temperature in station n°" + region + " : "+ ville);
 
 
         // Ordinal scale
@@ -138,17 +153,24 @@
     function refreshView(region) {
 
         d3.csv("newData.csv", function (data) {
-
+			data = data.filter(function (d) {
+                return d.IDStation == region;
+            });
+            let ville;
             // Pre-processing
-            data.forEach(function (d) {
+            data.forEach(function (d, i) {
                 d.date = parseDate(d.Date);
                 d.temperature = +d.Temperature;
                 d.IDStation = +d.IDStation;
+                d.ville = +d.NomLieu;
+                if(i == 0){
+					ville = d.NomLieu;
+				}
+                
             });
 
-            data = data.filter(function (d) {
-                return d.IDStation == region;
-            });
+            
+            console.log(ville)
 
             // Change the line
             // Ordinal scale
@@ -271,7 +293,7 @@
 
             // Change title
             d3.select("#title")
-                .text("Temperature in station n°" + region + ".");
+                .text("Temperature in station n°" + region + " : "+ ville);
         });
     }
 
