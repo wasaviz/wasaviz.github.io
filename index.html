@@ -18,11 +18,23 @@
 
 <p>A visualization of water and temperature changes in France by regions, from 2010 to 2018.</p>
 
-<select id="station" onchange="refreshView(this.value)"></select>
+<select id="station" onchange="createLineChart(document.getElementById('indicator').value, this.value)"></select>
+
+<select id="indicator" onchange="createLineChart(this.value, document.getElementById('station').value)">
+    <option value="Temperature">Température</option>
+    <option value="VitesseVent">Vitesse moyenne du vent</option>
+    <option value="Pluie1">Pluie à 1 heure</option>
+    <option value="Pluie3">Pluie à 3 heures</option>
+    <option value="Pluie6">Pluie à 6 heures</option>
+    <option value="Pluie12">Pluie à 12 heures</option>
+    <option value="Pluie24">Pluie à 24 heures</option>
+    <option value="Neige">Hauteur de neige</option>
+    <option value="NeigeFraiche">Hauteur de neige fraiche</option>
+</select>
 
 <div id="linechart"></div>
 
-<script src="script_temperature.js"></script>
+<script src="script_linechart.js"></script>
 
 </body>
 </html>
