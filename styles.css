@@ -4,9 +4,13 @@
     stroke-width: 3px;
 }
 
-#title {
+#linechartTitle {
     color: darkRed;
     font-weight: bold;
+}
+
+#linechart {
+    background-color: lightgoldenrodyellow;
 }
 
 .tooltip {
