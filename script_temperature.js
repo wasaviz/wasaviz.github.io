@@ -21,7 +21,7 @@ var displayDate = d3.timeFormat("%Y-%m-%d");
 
 var g = svg.append("g");
 
-var tooltip = d3.select("body")
+var tooltip = d3.select("body").select("#linechart")
     .append("div")
     .attr("class", "tooltip hidden")
     .attr("width", 10)
