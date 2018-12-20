@@ -56,6 +56,7 @@ d3.csv("newData.csv", function (data) {
             var option = document.createElement("option");
             option.value = data[i].IDStation;
             option.text = data[i].NomLieu;
+            option.id = data[i].IDStation;
             select.appendChild(option);
         }
     }
@@ -108,6 +109,9 @@ d3.csv("newData.csv", function (data) {
         return d.IDStation === region;
     });
     ville = data[0].NomLieu;
+    idVille = data[0].IDStation;
+    var option = document.getElementById(idVille)
+    option.selected = true;
 
     d3.select("#title")
         .text("Temperature in station n°" + region + " : " + ville);
