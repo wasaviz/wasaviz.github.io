@@ -29,6 +29,10 @@ var tooltip = d3.select("body")
     .style('background-color', '#fff')
     .style('padding', '.5em');
 
+var x = d3.scaleTime();
+
+var y = d3.scaleLinear();
+
 
 d3.csv("newData.csv", function (data) {
 
@@ -53,6 +57,18 @@ d3.csv("newData.csv", function (data) {
         }
     }
 
+    // Ordinal scale
+    x.range([0, width])
+        .domain(d3.extent(data, function (d) {
+            return d.date;
+        }));
+
+    // Linear scale
+    y.range([0, height - 30])
+        .domain(d3.extent(data, function (d) {
+            return d.temperature;
+        }));
+
     data = data.filter(function (d) {
         return d.IDStation === region;
     });
@@ -60,21 +76,6 @@ d3.csv("newData.csv", function (data) {
 
     d3.select("#title")
         .text("Temperature in station n°" + region + " : " + ville);
-
-
-    // Ordinal scale
-    var x = d3.scaleTime()
-        .range([0, width])
-        .domain(d3.extent(data, function (d) {
-            return d.date;
-        }));
-
-    // Linear scale
-    var y = d3.scaleLinear()
-        .range([0, height - 30])
-        .domain(d3.extent(data, function (d) {
-            return d.temperature;
-        }));
 
 
     //Affichage de la courbe
@@ -146,7 +147,7 @@ function refreshView(region) {
 
         // Change the line
         // Ordinal scale
-        var x = d3.scaleTime()
+        /*var x = d3.scaleTime()
             .range([0, width])
             .domain(d3.extent(data, function (d) {
                 return d.date;
@@ -157,7 +158,7 @@ function refreshView(region) {
             .range([0, height])
             .domain(d3.extent(data, function (d) {
                 return d.temperature;
-            }));
+            }));*/
 
         var line = d3.line()
             .x(function (d) {
