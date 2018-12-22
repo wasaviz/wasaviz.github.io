@@ -171,9 +171,9 @@ function createLineChart(indicator, region) {
 
                 var mouse = d3.mouse(this);
                 tooltip.classed('hidden', false)
-                    .attr('style', 'position: absolute; left:' + (mouse[0] + 30) +
-                        'px; top:' + (mouse[1] + 130) + 'px')
-                    .html(formatDecimal(d.value) + dictIndicatorUnit[indicator] + " " + displayDate(d.date));
+                    .attr('style', 'position: fixed; left:' + (mouse[0] + 30) +
+                        'px; top:' + (mouse[1] + 220) + 'px;')
+                    .html(formatDecimal(d.value) + dictIndicatorUnit[indicator] + " <br> " + displayDate(d.date));
             })
             .on("mouseout", function (d, i) {
                 d3.select(this).transition().duration(300)
