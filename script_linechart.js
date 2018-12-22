@@ -150,7 +150,7 @@ function createLineChart(indicator, region) {
             .attr("d", line(data));
 
 
-        var formatDecimal = d3.format(".4f")
+        var formatDecimal = d3.format(".4f");
 
         g.selectAll("circle")
             .data(data)

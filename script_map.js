@@ -1,4 +1,12 @@
 function createMap(indicator, region) {
+
+    region = +region;
+
+    document.getElementById("regionmap").remove();
+    var newMap = document.createElement("div");
+    newMap.setAttribute("id", "regionmap");
+    document.body.appendChild(newMap);
+
     var width = 700,
         height = 580;
 
@@ -36,26 +44,37 @@ function createMap(indicator, region) {
             d.IDStation = +d.IDStation;
         });
 
+        data = d3.nest()
+            .key(function(d) { return [d.IDStation, d.Coordonnees];})
+            .rollup(function(d) {
+                return d3.mean(d, function(g) {return g.value; });
+            }).entries(data);
+
+        data = data.filter(function (d) {
+            return parseFloat(d.key.split(',')[2]) < 11
+                && parseFloat(d.key.split(',')[2]) > -5
+                && parseFloat(d.key.split(',')[1]) < 51
+                && parseFloat(d.key.split(',')[1]) > 40;
+        })
+
+        var color = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value;
+        }))
+            .interpolate(d3.interpolateHcl)
+            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
+
         svg.selectAll("rect")
             .data(data)
             .enter()
             .append("rect")
-            .style("fill", function(d) {
-                return 'red';
+            .style('fill', function (d) {
+                return color(d.value);
             })
             .attr('width', 30)
             .attr('height', 30)
-            .attr('x', function(d){
-                //console.log(d.Coordonnees.split(', '))
-                return projection(parseFloat(d.Coordonnees.split(', ')[1]));
-            })
-            .attr('y', function(d){
-                //onsole.log(d.Coordonnees.split(', '))
-                projection(parseFloat(d.Coordonnees.split(', ')[0]));
-            })
             .attr("transform", function(d) {
                 //console.log(d.Coordonnees)
-                return "translate(" + projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])])  + ")";
+                return "translate(" + projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])])  + ")";
             });
     });
 }
