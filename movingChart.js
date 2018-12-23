@@ -17,6 +17,8 @@ var y = d3.scaleLinear()
 var y2 = d3.scaleLinear()
 var x_axis;
 var y_axis;
+var x_label;
+var y_label;
 
 d3.csv("newData.csv", function(data) {
 	
@@ -83,6 +85,27 @@ d3.csv("newData.csv", function(data) {
 	.attr('transform', 'translate(0,' +450+ ')')
 	.attr('class', 'x axis')
 	.call(x_axis);
+	
+	x_label = svg.append("text")
+	             
+    x_label.attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 40) + ")")
+      .style("text-anchor", "middle")
+      .text("Temperature");
+      
+    y_label = svg.append("text")
+    
+      y_label.attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Pluie");  
+      
+     
+      
+     
 });
 
 	
@@ -111,6 +134,9 @@ function createGraph(var_x, var_y){
 		//.range(height, 0);
 		
 		y_axis.scale(y2);
+		
+		x_label.text(var_x)
+		y_label.text(var_y)  
 	
 	  svg.selectAll("rect")
 		.data(data)
@@ -118,6 +144,7 @@ function createGraph(var_x, var_y){
 			return color(d.IDStation);
 		  })
 		.transition()
+		.duration(3000)
 		.attr('width', 10)
 		.attr('height', 10)
 		.attr('x', function(d){
@@ -141,12 +168,14 @@ function createGraph(var_x, var_y){
 		  .attr('height', 10)
 		});
 		
-		svg.append('g').attr('transform', 'translate('+margin.right+', 0 )').call(y_axis);
+		svg.append('g').attr('transform', 'translate('+margin.left+', 0 )').call(y_axis);
 
 		svg.append('g')
 		.attr('transform', 'translate(0,' +450+ ')')
 		.attr('class', 'x axis')
 		.call(x_axis);
+		
+
 	})
 }
 
