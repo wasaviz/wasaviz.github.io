@@ -44,9 +44,10 @@
     <option value="NeigeFraiche">Hauteur de neige fraiche</option>
 </select>
 
+
+
 <div id="regiongraph"></div>
 
-<script src="movingChart.js"></script>
 <select id="station" onchange="createLineChart(document.getElementById('indicator').value, this.value)"></select>
 
 <select id="indicator" onchange="createLineChart(this.value, document.getElementById('station').value)">
@@ -60,6 +61,9 @@
     <option value="Neige">Hauteur de neige</option>
     <option value="NeigeFraiche">Hauteur de neige fraiche</option>
 </select>
+
+<script src="movingChart.js"></script>
+
 
 <div id="linechart"></div>
 

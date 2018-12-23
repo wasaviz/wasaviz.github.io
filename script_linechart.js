@@ -65,7 +65,6 @@ function createLineChart(indicator, region) {
             d.value = +d[indicator];
             d.IDStation = +d.IDStation;
         });
-
         // Création du selecteur
         var regions = [];
         var select = document.getElementById("station");
