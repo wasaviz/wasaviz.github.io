@@ -22,46 +22,6 @@
 
 <body>
   <script>
-		var width = 700,
-  		  height = 580;
-
-		var svg = d3.select( "body" )
-  		.append( "svg" )
-		  .attr( "width", width )
-		  .attr( "height", height );
-		  
-
-    d3.csv("newData.csv", function(data) {
-		//console.log(data[Temperature)
-		var x = d3.scaleLinear()
-		
-				//.domain([d3.min(data.Temperature),d3.max(data.Temperature)])
-				.domain([-20, 40])
-				.range([0,width]);
-
-
-		var y = d3.scaleLinear()
-				.domain([-0.1, 30])
-				.range([0,height]);
-				
-		var color = d3.scaleOrdinal(d3.schemeCategory20);
-    
-      svg.selectAll("rect")
-      	.data(data)
-      	.enter()
-      	.append("rect")
-        .style("fill", function(d) {
-			return color(d.IDStation);
-		  })
-      	.attr('width', 30)
-      	.attr('height', 30)
-      	.attr('x', function(d){
-			return x(d.Temperature) ;
-		})
-      	.attr('y', function(d){
-			return height - y(d.Pluie24);
-		})
-    });
 
   </script>
 </body>
