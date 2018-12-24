@@ -20,7 +20,7 @@
 
 <div id="regionmap"></div>
 
-<select id="var_x" onchange="createGraph(this.value, document.getElementById('var_y').value)">
+<select id="var_x" onchange="createGraph(this.value, document.getElementById('var_y').value, document.getElementById('time').value)">
     <option value="Temperature">Température</option>
     <option value="VitesseVent">Vitesse moyenne du vent</option>
     <option value="Pluie1">Pluie à 1 heure</option>
@@ -32,7 +32,7 @@
     <option value="NeigeFraiche">Hauteur de neige fraiche</option>
 </select>
 
-<select id="var_y" onchange="createGraph(document.getElementById('var_x').value, this.value)">
+<select id="var_y" onchange="createGraph(document.getElementById('var_x').value, this.value, document.getElementById('time').value)">
 	<option value="Pluie24">Pluie à 24 heures</option>
     <option value="Temperature">Température</option>
     <option value="VitesseVent">Vitesse moyenne du vent</option>
@@ -44,6 +44,7 @@
     <option value="NeigeFraiche">Hauteur de neige fraiche</option>
 </select>
 
+<select id="time" onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value)"></select>
 
 
 <div id="regiongraph"></div>
@@ -64,9 +65,7 @@
 
 <script src="movingChart.js"></script>
 
-
 <div id="linechart"></div>
-
 
 <div id="linechart"></div>
 

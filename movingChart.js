@@ -30,10 +30,29 @@ d3.select("body").select("#regionmap")
         .append("h2")
         .attr("id", "regionGraphTitle")
         .text("Projection of the stations in the Temperature and Pluie24 axis.");
+        
+
 
 d3.csv("newData.csv", function(data) {
 	var var_x = 'Temperature'
 	var var_y = 'Pluie24'
+	var times = [];
+	var select = document.getElementById("time");
+	for (var i = 0; i < data.length; i++) {
+		if (!times.includes(data[i].Date)) {
+			times.push(data[i].Date);
+			var option = document.createElement("option");
+			option.value = data[i].Date;
+			option.text = data[i].Date;
+			option.id = data[i].Date;
+			select.appendChild(option);
+		}
+	}
+	let time = times[0]
+	//document.getElementById("time").property('value', times[0]);
+	
+	//let time = document.getElementById("time").value
+	//console.log(time)
 	
 	x.domain(d3.extent(data, function(d){
 			return +d[var_x];
@@ -51,11 +70,11 @@ d3.csv("newData.csv", function(data) {
 	.range([height,0]);
 
 	y_axis = d3.axisLeft(y2);
-	
-	
-	  
+
   svg.selectAll("rect")
-	.data(data)
+	.data(data.filter(function(d){
+		//console.log(d.Date, time)
+		return d.Date == time;}))
 	.enter()
 	.append("rect")
 	.style("fill", function(d) {
@@ -79,12 +98,9 @@ d3.csv("newData.csv", function(data) {
 	  .transition()
 	  .attr('width', 20)
 	  .attr('height', 20)
-	  
 	  tooltip.classed('hidden', false)
 		.attr('style', 'left:' + (mouse[0]+margin.left) +
 				'px; top:' + (mouse[1]+80) + 'px')
-		/*.attr('style', 'left:' + 200 +
-				'px; top:' +200+ 'px')-*/
 		.html('Station : '+d.NomLieu);
 	})
 	.on("mouseout", function(d){
@@ -121,12 +137,14 @@ d3.csv("newData.csv", function(data) {
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text("Pluie");  
+      console.log(time)
 });
 
 	
-function createGraph(var_x, var_y){
+function createGraph(var_x, var_y, time){
 	
 	d3.csv("newData.csv", function(data) {
+		//mise a jour des domaines des axes
 		x.domain(d3.extent(data, function(d){
 			return +d[var_x];
 		}))
@@ -134,27 +152,22 @@ function createGraph(var_x, var_y){
 			return +d[var_y]
 		}))
 		
-		console.log(d3.extent(data, function(d){
-			return +d[var_y]
-		}))
-		
 		x_axis.scale(x);
 		y2.domain(d3.extent(data, function(d){
 			return +d[var_y];
 		}))
-		
 		y_axis.scale(y2);
 		
+		//labels des axes
 		x_label.text(var_x)
 		y_label.text(var_y)  
-	
+		console.log(time)
+		//Mise a jour de la position des regions
 	  svg.selectAll("rect")
-		.data(data)
-		.style("fill", function(d) {
-			return color(d.IDStation);
-		  })
+		.data(data.filter(function(d){
+		return d.Date == time;}))
 		.transition()
-		.duration(3000)
+		.duration(2000)
 		.attr('width', 10)
 		.attr('height', 10)
 		.attr('x', function(d){
@@ -163,8 +176,10 @@ function createGraph(var_x, var_y){
 		.attr('y', function(d){
 			return height - y(d[var_y]);
 		});
-		g_y.call(y_axis);
-		g_x.call(x_axis);
+		
+		//affichage des axes
+		g_y.call(y_axis).transition();
+		g_x.call(x_axis).transition();
 	})
 }
 
