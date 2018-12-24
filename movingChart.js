@@ -1,4 +1,4 @@
-  
+// ****************** Draws regions by projecting them in the selected variables axis ***********************************  
   
 var margin = {top: 20, right: 20, bottom: 50, left: 70}
 var width = 800 - margin.left - margin.right;
@@ -11,6 +11,7 @@ var svg = d3.select("body").select("#regiongraph").append("svg")
 .attr("transform",
 	"translate(" + margin.left + "," + margin.top + ")");
 
+//global variables
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 var x = d3.scaleLinear()
 var y = d3.scaleLinear()
@@ -25,19 +26,24 @@ var parseDate = d3.timeParse("%Y-%m-%d");
 var displayDate = d3.timeFormat("%Y-%m-%d");
 var g_x;
 var g_y;
+var times = [];
 
 d3.select("body").select("#regionmap")
         .append("h2")
         .attr("id", "regionGraphTitle")
         .text("Projection of the stations in the Temperature and Pluie24 axis.");
         
+document.getElementById("time").disabled = true;
+document.getElementById("var_x").value = "Temperature"
+document.getElementById("var_y").value = "VitesseVent"
 
 
+// Graphique initial et initialisation
 d3.csv("newData.csv", function(data) {
-	var var_x = 'Temperature'
-	var var_y = 'Pluie24'
-	var times = [];
+	var var_x = document.getElementById("var_x").value
+	var var_y = document.getElementById("var_y").value
 	var select = document.getElementById("time");
+	//fills the time values in the select box
 	for (var i = 0; i < data.length; i++) {
 		if (!times.includes(data[i].Date)) {
 			times.push(data[i].Date);
@@ -48,12 +54,13 @@ d3.csv("newData.csv", function(data) {
 			select.appendChild(option);
 		}
 	}
+	//initialize the time slider
+	document.getElementById('timeRange').min = 0
+	document.getElementById('timeRange').max = times.length-1
+	
 	let time = times[0]
-	//document.getElementById("time").property('value', times[0]);
 	
-	//let time = document.getElementById("time").value
-	//console.log(time)
-	
+	//scales and axis
 	x.domain(d3.extent(data, function(d){
 			return +d[var_x];
 		}))
@@ -70,23 +77,23 @@ d3.csv("newData.csv", function(data) {
 	.range([height,0]);
 
 	y_axis = d3.axisLeft(y2);
-
+	
+	// drawing the regions
   svg.selectAll("rect")
 	.data(data.filter(function(d){
-		//console.log(d.Date, time)
 		return d.Date == time;}))
 	.enter()
 	.append("rect")
 	.style("fill", function(d) {
 		return color(d.IDStation);
 	  })
-	.attr('width', 10)
-	.attr('height', 10)
+	.attr('width', 15)
+	.attr('height', 15)
 	.attr('x', function(d){
-		return x(d.Temperature)+margin.left ;
+		return x(d[var_x])+margin.left ;
 	})
 	.attr('y', function(d){
-		return height - y(d.Pluie24);
+		return height - y(d[var_y]);
 	})
 	.on("mouseover", function(d){
 		var mouse = d3.mouse(svg.node()).map(function(d) {
@@ -96,8 +103,8 @@ d3.csv("newData.csv", function(data) {
 		return e === d;
 	  })
 	  .transition()
-	  .attr('width', 20)
-	  .attr('height', 20)
+	  .attr('width', 30)
+	  .attr('height', 30)
 	  tooltip.classed('hidden', false)
 		.attr('style', 'left:' + (mouse[0]+margin.left) +
 				'px; top:' + (mouse[1]+80) + 'px')
@@ -106,29 +113,28 @@ d3.csv("newData.csv", function(data) {
 	.on("mouseout", function(d){
 	  d3.selectAll("rect")
 	  .transition()
-	  .attr('width', 10)
-	  .attr('height', 10)
+	  .attr('width', 15)
+	  .attr('height', 15)
 	  tooltip.classed('hidden', true)
 	})
 	.style('stroke-width', 0.5)
 	.style('stroke', 'black');
 	
-	g_y = svg.append('g').attr('transform', 'translate('+margin.right+', 0 )')
-	
+	//display the axis
+	g_y = svg.append('g').attr('transform', 'translate('+-margin.right+', 0 )')
 	g_y.call(y_axis);
-
 	g_x = svg.append('g')
 	.attr('transform', 'translate(0,' +450+ ')')
 	.attr('class', 'x axis');
-	
 	g_x.call(x_axis);
 	
+	//axis labels
 	x_label = svg.append("text")          
     x_label.attr("transform",
             "translate(" + (width/2) + " ," + 
                            (height + margin.top + 40) + ")")
       .style("text-anchor", "middle")
-      .text("Temperature");
+      .text(var_x);
       
     y_label = svg.append("text")
       y_label.attr("transform", "rotate(-90)")
@@ -136,13 +142,12 @@ d3.csv("newData.csv", function(data) {
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Pluie");  
-      console.log(time)
+      .text(var_y);  
 });
 
-	
+//updates the chart when varibles or time change
 function createGraph(var_x, var_y, time){
-	
+	document.getElementById("time").value = times[time]
 	d3.csv("newData.csv", function(data) {
 		//mise a jour des domaines des axes
 		x.domain(d3.extent(data, function(d){
@@ -165,11 +170,11 @@ function createGraph(var_x, var_y, time){
 		//Mise a jour de la position des regions
 	  svg.selectAll("rect")
 		.data(data.filter(function(d){
-		return d.Date == time;}))
+		return d.Date == times[time];}))
 		.transition()
 		.duration(2000)
-		.attr('width', 10)
-		.attr('height', 10)
+		.attr('width', 15)
+		.attr('height', 15)
 		.attr('x', function(d){
 			return x(d[var_x]) ;
 		})
@@ -178,11 +183,8 @@ function createGraph(var_x, var_y, time){
 		});
 		
 		//affichage des axes
-		g_y.call(y_axis).transition();
-		g_x.call(x_axis).transition();
+		g_y.transition().duration(2000).call(y_axis);
+		g_x.transition().duration(2000).call(x_axis)
 	})
 }
-
-	
-
 

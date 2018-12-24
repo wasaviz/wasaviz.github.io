@@ -19,8 +19,8 @@
 <p>A visualization of water and temperature changes in France by regions, from 2010 to 2018.</p>
 
 <div id="regionmap"></div>
-
-<select id="var_x" onchange="createGraph(this.value, document.getElementById('var_y').value, document.getElementById('time').value)">
+Abscisses : 
+<select id="var_x" onchange="createGraph(this.value, document.getElementById('var_y').value, document.getElementById('timeRange').value)">
     <option value="Temperature">Température</option>
     <option value="VitesseVent">Vitesse moyenne du vent</option>
     <option value="Pluie1">Pluie à 1 heure</option>
@@ -32,7 +32,8 @@
     <option value="NeigeFraiche">Hauteur de neige fraiche</option>
 </select>
 
-<select id="var_y" onchange="createGraph(document.getElementById('var_x').value, this.value, document.getElementById('time').value)">
+Ordonnées :
+<select id="var_y" onchange="createGraph(document.getElementById('var_x').value, this.value, document.getElementById('timeRange').value)">
 	<option value="Pluie24">Pluie à 24 heures</option>
     <option value="Temperature">Température</option>
     <option value="VitesseVent">Vitesse moyenne du vent</option>
@@ -44,7 +45,10 @@
     <option value="NeigeFraiche">Hauteur de neige fraiche</option>
 </select>
 
-<select id="time" onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value)"></select>
+Temps : 
+<select id="time" ></select>
+
+<input type="range" min="1" max="100" value="0" class="slider" id="timeRange" onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value)">
 
 
 <div id="regiongraph"></div>
