@@ -20,7 +20,7 @@
 
 <div id="regionmap"></div>
 Abscisses : 
-<select id="var_x" onchange="createGraph(this.value, document.getElementById('var_y').value, document.getElementById('timeRange').value)">
+<select id="var_x" onchange="createGraph(this.value, document.getElementById('var_y').value, document.getElementById('timeRange').value, 2000)">
     <option value="Temperature">Température</option>
     <option value="VitesseVent">Vitesse moyenne du vent</option>
     <option value="Pluie1">Pluie à 1 heure</option>
@@ -33,7 +33,7 @@ Abscisses :
 </select>
 
 Ordonnées :
-<select id="var_y" onchange="createGraph(document.getElementById('var_x').value, this.value, document.getElementById('timeRange').value)">
+<select id="var_y" onchange="createGraph(document.getElementById('var_x').value, this.value, document.getElementById('timeRange').value, 2000)">
 	<option value="Pluie24">Pluie à 24 heures</option>
     <option value="Temperature">Température</option>
     <option value="VitesseVent">Vitesse moyenne du vent</option>
@@ -48,8 +48,9 @@ Ordonnées :
 Temps : 
 <select id="time" ></select>
 
-<input type="range" min="1" max="100" value="0" class="slider" id="timeRange" onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value)">
+<input type="range" min="1" max="100" value="0" class="slider" id="timeRange" onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value, 2000)">
 
+<button id="movieButton" onclick="movie(document.getElementById('var_x').value, document.getElementById('var_y').value, 1000)" >Start movie</button>
 
 <div id="regiongraph"></div>
 

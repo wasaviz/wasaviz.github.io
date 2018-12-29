@@ -40,6 +40,8 @@ document.getElementById("var_y").value = "VitesseVent"
 
 // Graphique initial et initialisation
 d3.csv("newData.csv", function(data) {
+	
+	
 	var var_x = document.getElementById("var_x").value
 	var var_y = document.getElementById("var_y").value
 	var select = document.getElementById("time");
@@ -146,9 +148,11 @@ d3.csv("newData.csv", function(data) {
 });
 
 //updates the chart when varibles or time change
-function createGraph(var_x, var_y, time){
+function createGraph(var_x, var_y, time, transition_time){
+	console.log('in create : ', time)
 	document.getElementById("time").value = times[time]
 	d3.csv("newData.csv", function(data) {
+		transition_time = parseInt(transition_time)
 		//mise a jour des domaines des axes
 		x.domain(d3.extent(data, function(d){
 			return +d[var_x];
@@ -172,7 +176,7 @@ function createGraph(var_x, var_y, time){
 		.data(data.filter(function(d){
 		return d.Date == times[time];}))
 		.transition()
-		.duration(2000)
+		.duration(transition_time)
 		.attr('width', 15)
 		.attr('height', 15)
 		.attr('x', function(d){
@@ -183,8 +187,30 @@ function createGraph(var_x, var_y, time){
 		});
 		
 		//affichage des axes
-		g_y.transition().duration(2000).call(y_axis);
-		g_x.transition().duration(2000).call(x_axis)
+		g_y.transition().duration(transition_time).call(y_axis);
+		g_x.transition().duration(transition_time).call(x_axis)
 	})
 }
 
+function sleep(miliseconds) {
+	var currentTime = new Date().getTime();
+	while (currentTime + miliseconds >= new Date().getTime()) {
+	}
+}
+
+
+function movie(var_x, var_y, time_step){
+	var i = 0;
+	var mov = setInterval(draw, 100);
+	function draw(){ 
+		console.log('-----------------')
+		if(i < times.length-1){
+			console.log('in movie : ', times[i])
+			createGraph(var_x, var_y, i, 10);
+			i = i+1;
+		}
+		else{
+			clearInterval(mov);
+		}
+	}
+}
