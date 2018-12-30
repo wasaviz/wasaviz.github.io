@@ -10,6 +10,17 @@ var svg = d3.select("body").select("#regiongraph").append("svg")
   .append("g")
 .attr("transform",
 	"translate(" + margin.left + "," + margin.top + ")");
+	
+var bg = svg.append("rect")
+
+bg.attr("width", "100%")
+    .attr("height", "100%")
+    .attr("fill", "white");
+
+var movie_label = svg.append('text')
+movie_label.attr('x', width/2)
+.attr('y', height/10)
+.attr('font-size', 20)
 
 //global variables
 var color = d3.scaleOrdinal(d3.schemeCategory20);
@@ -192,22 +203,37 @@ function createGraph(var_x, var_y, time, transition_time){
 	})
 }
 
-function sleep(miliseconds) {
-	var currentTime = new Date().getTime();
-	while (currentTime + miliseconds >= new Date().getTime()) {
-	}
-}
+var seasons = {
+  '01': 'Winter',
+  '02': 'Winter',
+  '03': 'Spring',
+  '04': 'Spring',
+  '05': 'Spring',
+  '06': 'Summer',
+  '07': 'Summer',
+  '08': 'Summer',
+  '09': 'Fall',
+  '10': 'Fall',
+  '11': 'Fall',
+  '12': 'Winter'
+};
 
+var color_seasons = {
+	'Winter' : '#deebf7',
+	'Spring' : '#e5f5e0',
+	'Summer' : '#ffeda0', 
+	'Fall' : '#fee0d2'
+};
 
 function movie(var_x, var_y, time_step){
 	var i = 0;
 	var mov = setInterval(draw, 100);
 	function draw(){ 
-		console.log('-----------------')
 		if(i < times.length-1){
-			console.log('in movie : ', times[i])
+			document.getElementById('timeRange').value = i
 			createGraph(var_x, var_y, i, 10);
 			i = i+1;
+			movie_label.text(seasons[times[i].split('-')[1]]+' '+times[i].split('-')[0])
 		}
 		else{
 			clearInterval(mov);
