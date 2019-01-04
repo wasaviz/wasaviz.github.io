@@ -17,7 +17,7 @@ function createLineChart(indicator, region) {
     document.getElementById("linechart").remove();
     var newLinechart = document.createElement("div");
     newLinechart.setAttribute("id", "linechart");
-    document.body.appendChild(newLinechart);
+    document.getElementById("linechart-container").appendChild(newLinechart);
 
     d3.select("body").select("#linechart")
         .append("h2")
@@ -25,8 +25,8 @@ function createLineChart(indicator, region) {
         .text(indicator + " in station n°" + region + ".");
 
     var margin = {top: 20, right: 20, bottom: 50, left: 70},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = document.getElementById("linechart-container").offsetWidth - margin.left - margin.right,
+        height = document.getElementById("linechart-container").offsetHeight - 100 - margin.top - margin.bottom;
 
     var svg = d3.select("body").select("#linechart").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -42,9 +42,8 @@ function createLineChart(indicator, region) {
 
     var tooltip = d3.select("body").select("#linechart")
         .append("div")
-        .attr("class", "tooltip hidden")
-        .attr("width", 10)
-        .attr("height", 10)
+        .attr("class", "hidden")
+        .attr("id", "tooltip-line")
         .style("font_size", 15)
         .style("font-family", "monospace")
         .style("color", '#222')
@@ -67,15 +66,9 @@ function createLineChart(indicator, region) {
         });
         // Création du selecteur
         var regions = [];
-        var select = document.getElementById("station");
         for (var i = 0; i < data.length; i++) {
             if (!regions.includes(data[i].IDStation)) {
                 regions.push(data[i].IDStation);
-                var option = document.createElement("option");
-                option.value = data[i].IDStation;
-                option.text = data[i].NomLieu;
-                option.id = data[i].IDStation;
-                select.appendChild(option);
             }
         }
 
@@ -128,10 +121,8 @@ function createLineChart(indicator, region) {
         });
         ville = data[0].NomLieu;
         idVille = data[0].IDStation;
-        var option = document.getElementById(idVille)
-        option.selected = true;
 
-        d3.select("#title")
+        d3.select("#linechartTitle")
             .text(indicator + " in station n°" + region + " : " + ville);
 
 
@@ -168,10 +159,9 @@ function createLineChart(indicator, region) {
                     .style("fill", "lightGray")
                     .attr("r", 5);
 
-                var mouse = d3.mouse(this);
                 tooltip.classed('hidden', false)
-                    .attr('style', 'position: fixed; left:' + (mouse[0] + 30) +
-                        'px; top:' + (mouse[1] + 220) + 'px;')
+                    .attr('style', 'left:' + (x(d.date) - 20) +
+                        'px; top:' + (height - y(d.value) - 700) + 'px;')
                     .html(formatDecimal(d.value) + dictIndicatorUnit[indicator] + " <br> " + displayDate(d.date));
             })
             .on("mouseout", function (d, i) {
@@ -184,4 +174,4 @@ function createLineChart(indicator, region) {
     });
 }
 
-createLineChart("Temperature", 7149);
+//createLineChart("Temperature", 7149);

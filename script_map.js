@@ -5,10 +5,10 @@ function createMap(indicator, region) {
     document.getElementById("regionmap").remove();
     var newMap = document.createElement("div");
     newMap.setAttribute("id", "regionmap");
-    document.body.appendChild(newMap);
+    document.getElementById("regionmap-container").appendChild(newMap);
 
-    var width = 700,
-        height = 580;
+    var width = document.getElementById("regionmap-container").offsetWidth,
+        height = document.getElementById("regionmap-container").offsetHeight;
 
     var svg = d3.select( "body" )
         .select("#regionmap")
@@ -18,7 +18,7 @@ function createMap(indicator, region) {
 
 
 
-    var projection = d3.geoConicConformal().center([2.454071, 46.279229]).scale(2800);
+    var projection = d3.geoConicConformal().center([6.454071, 47.279229]).scale(2800);
 
     var path = d3.geoPath() // d3.geo.path avec d3 version 3
         .projection(projection);
@@ -55,7 +55,7 @@ function createMap(indicator, region) {
                 && parseFloat(d.key.split(',')[2]) > -5
                 && parseFloat(d.key.split(',')[1]) < 51
                 && parseFloat(d.key.split(',')[1]) > 40;
-        })
+        });
 
         var color = d3.scaleLinear().domain(d3.extent(data, function (d) {
             return d.value;
@@ -70,11 +70,28 @@ function createMap(indicator, region) {
             .style('fill', function (d) {
                 return color(d.value);
             })
-            .attr('width', 30)
-            .attr('height', 30)
+            .attr('width', 15)
+            .attr('height', 15)
+            .attr("class", function (d) {
+                return "id" + d.key.split(',')[0];
+            })
             .attr("transform", function(d) {
                 //console.log(d.Coordonnees)
                 return "translate(" + projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])])  + ")";
+            })
+            .on("mouseover", function(d, i) {
+                d3.selectAll(".id" + d.key.split(',')[0])
+                    .transition()
+                    .attr('width', 30)
+                    .attr('height', 30);
+                createLineChart(indicator, d.key.split(',')[0]);
+            })
+            .on("mouseout", function (d) {
+                d3.selectAll("rect")
+                    .transition()
+                    .attr('width', 15)
+                    .attr('height', 15);
+                tooltip.classed('hidden', true)
             });
     });
 }

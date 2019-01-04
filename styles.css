@@ -12,33 +12,80 @@
     color: darkRed;
     font-weight: bold;
 }
-#linechart {
-    background-color: lightgoldenrodyellow;
+
+div.tooltip {
+    position: relative;
+	color: #222;
+	background-color: #bdbdbd;
+    width: 80px;
+    height: 60px;
+	padding: .5em;
+	text-shadow: #f5f5f5 0 1px 0;
+	border-radius: 2px;
+	opacity: 0.9;
 }
 
-.tooltip {
+div#tooltip-line {
+    position: relative;
+    width: 80px;
+    height: 40px;
     color: #222;
-    background-color: #fff;
+    background-color: #bdbdbd;
     padding: .5em;
     text-shadow: #f5f5f5 0 1px 0;
     border-radius: 2px;
     opacity: 0.9;
 }
 
-div.tooltip {
-	color: #222;
-	background-color: #bdbdbd;
-	padding: .5em;
-	text-shadow: #f5f5f5 0 1px 0;
-	border-radius: 2px;
-	opacity: 0.9;
-	position: absolute;
-}
-
 .hidden {
     display: none;
 }
 
-#regionmap {
+
+body {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100px 700px 700px 100px;
+}
+
+#regionmap-container {
     background-color: lightcyan;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 2;
+    grid-row-end: 2;
+}
+
+#linechart-container {
+    background-color: lightgoldenrodyellow;
+    grid-column-start: 1;
+    grid-column-end: end;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+
+#regiongraph-container {
+    background-color: lightpink;
+    grid-column-start: 2;
+    grid-column-end: end;
+    grid-row-start: 2;
+    grid-row-end: 2;
+}
+
+#footer {
+    grid-column-start: 1;
+    grid-column-end: end;
+    grid-row-start: 4;
+    grid-row-end: 4;
+}
+
+#header {
+    grid-column-start: 1;
+    grid-column-end: end;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+#linechart-placeholder {
+    position: center;
 }

@@ -14,13 +14,16 @@
 </head>
 <body>
 
-<h1>Rain, wind, snow: how has climate changed in France from 2010 to 2018?</h1>
+<span id="header">
+    <h1>Rain, wind, snow: how has climate changed in Metropolitan France from 2010 to 2018?</h1>
 
-<p>A visualization of water and temperature changes in France by regions, from 2010 to 2018.</p>
+    <p>A visualization of water and temperature changes in France by regions, from 2010 to 2018.</p>
+</span>
 
-<div id="regionmap"></div>
+<span id="regiongraph-container">
 Abscisses : 
-<select id="var_x" onchange="createGraph(this.value, document.getElementById('var_y').value, document.getElementById('timeRange').value, 2000)">
+<select id="var_x"
+        onchange="createGraph(this.value, document.getElementById('var_y').value, document.getElementById('timeRange').value, 2000)">
     <option value="Temperature">Température</option>
     <option value="VitesseVent">Vitesse moyenne du vent</option>
     <option value="Pluie1">Pluie à 1 heure</option>
@@ -33,7 +36,8 @@ Abscisses :
 </select>
 
 Ordonnées :
-<select id="var_y" onchange="createGraph(document.getElementById('var_x').value, this.value, document.getElementById('timeRange').value, 2000)">
+<select id="var_y"
+        onchange="createGraph(document.getElementById('var_x').value, this.value, document.getElementById('timeRange').value, 2000)">
 	<option value="Pluie24">Pluie à 24 heures</option>
     <option value="Temperature">Température</option>
     <option value="VitesseVent">Vitesse moyenne du vent</option>
@@ -46,39 +50,51 @@ Ordonnées :
 </select>
 
 Temps : 
-<select id="time" ></select>
+<select id="time"></select>
 
-<input type="range" min="1" max="100" value="0" class="slider" id="timeRange" onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value, 2000)">
+<input type="range" min="1" max="100" value="0" class="slider" id="timeRange"
+       onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value, 2000)">
 
-<button id="movieButton" onclick="movie(document.getElementById('var_x').value, document.getElementById('var_y').value, 1000)" >Start movie</button>
+<button id="movieButton"
+        onclick="movie(document.getElementById('var_x').value, document.getElementById('var_y').value, 1000)">Start movie</button>
 
 <div id="regiongraph"></div>
 
-<select id="station" onchange="createLineChart(document.getElementById('indicator').value, this.value)"></select>
+</span>
 
-<select id="indicator" onchange="createLineChart(this.value, document.getElementById('station').value)">
-    <option value="Temperature">Température</option>
-    <option value="VitesseVent">Vitesse moyenne du vent</option>
-    <option value="Pluie1">Pluie à 1 heure</option>
-    <option value="Pluie3">Pluie à 3 heures</option>
-    <option value="Pluie6">Pluie à 6 heures</option>
-    <option value="Pluie12">Pluie à 12 heures</option>
-    <option value="Pluie24">Pluie à 24 heures</option>
-    <option value="Neige">Hauteur de neige</option>
-    <option value="NeigeFraiche">Hauteur de neige fraiche</option>
-</select>
+<!--<select id="station" onchange="createLineChart(document.getElementById('indicator').value, this.value)"></select>-->
+
+<span id="linechart-container">
+    <select id="indicator" onchange="createLineChart(this.value, document.getElementById('station').value)">
+        <option value="Temperature">Température</option>
+        <option value="VitesseVent">Vitesse moyenne du vent</option>
+        <option value="Pluie1">Pluie à 1 heure</option>
+        <option value="Pluie3">Pluie à 3 heures</option>
+        <option value="Pluie6">Pluie à 6 heures</option>
+        <option value="Pluie12">Pluie à 12 heures</option>
+        <option value="Pluie24">Pluie à 24 heures</option>
+        <option value="Neige">Hauteur de neige</option>
+        <option value="NeigeFraiche">Hauteur de neige fraiche</option>
+    </select>
+
+    <div id="linechart">
+        <p id="linechart-placeholder">Hover a square on the map or on the graph to show several information.</p>
+    </div>
+</span>
+
+<span id="regionmap-container">
+    <div id="regionmap"></div>
+</span>
 
 <script src="movingChart.js"></script>
-
-<div id="linechart"></div>
-
-<div id="linechart"></div>
 
 <script src="script_map.js"></script>
 
 <script src="script_linechart.js"></script>
 
 <script src="main.js"></script>
+
+<footer id="footer">CASSAN Océane, COTTET Clément, PISTER Alexis, TEITGEN Raphaël, VERKIN Louise</footer>
 
 </body>
 </html>
