@@ -128,7 +128,7 @@ d3.csv("newData.csv", function (data) {
                 .attr('height', 30);
             tooltip.classed('hidden', false)
                 .attr('style', 'left:' + (x(d[var_x]) + margin.left + 30) +
-                    'px; top:' + (height - y(d[var_y]) - 730) + 'px')
+                    'px; top:' + (height - y(d[var_y]) - 700) + 'px')
                 .html('Station : ' + d.NomLieu);
             d3.selectAll(".id" + d.IDStation)
                 .transition()
