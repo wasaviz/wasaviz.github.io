@@ -65,7 +65,13 @@ Temps :
 <!--<select id="station" onchange="createLineChart(document.getElementById('indicator').value, this.value)"></select>-->
 
 <span id="linechart-container">
-    <select id="indicator" onchange="createLineChart(this.value, document.getElementById('station').value)">
+    <div id="linechart">
+        <p id="linechart-placeholder">Hover a square on the map or on the graph to show several information.</p>
+    </div>
+</span>
+
+<span id="regionmap-container">
+    <select id="indicator" onchange="createMap(this.value, 0)">
         <option value="Temperature">Température</option>
         <option value="VitesseVent">Vitesse moyenne du vent</option>
         <option value="Pluie1">Pluie à 1 heure</option>
@@ -76,13 +82,6 @@ Temps :
         <option value="Neige">Hauteur de neige</option>
         <option value="NeigeFraiche">Hauteur de neige fraiche</option>
     </select>
-
-    <div id="linechart">
-        <p id="linechart-placeholder">Hover a square on the map or on the graph to show several information.</p>
-    </div>
-</span>
-
-<span id="regionmap-container">
     <div id="regionmap"></div>
 </span>
 
