@@ -45,7 +45,7 @@ div#tooltip-line {
 body {
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 100px 700px 700px 100px;
+    grid-template-rows: 100px 800px 700px 100px;
 }
 
 #regionmap-container {

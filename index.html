@@ -52,11 +52,11 @@ Ordonnées :
 Temps : 
 <select id="time"></select>
 
-<input type="range" min="1" max="100" value="0" class="slider" id="timeRange"
+<input type="range" min="1" max="50" value="0" class="slider" id="timeRange"
        onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value, 2000)">
 
 <button id="movieButton"
-        onclick="movie(document.getElementById('var_x').value, document.getElementById('var_y').value, 1000)">Start movie</button>
+        onclick="movie(document.getElementById('var_x').value, document.getElementById('var_y').value, 500)">Start movie</button>
 
 <div id="regiongraph"></div>
 
@@ -71,17 +71,18 @@ Temps :
 </span>
 
 <span id="regionmap-container">
-    <select id="indicator" onchange="createMap(this.value, 0)">
-        <option value="Temperature">Température</option>
-        <option value="VitesseVent">Vitesse moyenne du vent</option>
-        <option value="Pluie1">Pluie à 1 heure</option>
-        <option value="Pluie3">Pluie à 3 heures</option>
-        <option value="Pluie6">Pluie à 6 heures</option>
-        <option value="Pluie12">Pluie à 12 heures</option>
-        <option value="Pluie24">Pluie à 24 heures</option>
-        <option value="Neige">Hauteur de neige</option>
-        <option value="NeigeFraiche">Hauteur de neige fraiche</option>
-    </select>
+    <svg>
+        <g>
+            <rect height="30" width="80" style="fill: red" transform="translate(0 0)"></rect>
+            <rect height="30" width="80" style="fill: white" transform="translate(80 0)"></rect>
+            <rect height="30" width="80" style="fill: blue" transform="translate(0 30)"></rect>
+            <rect height="30" width="80" style="fill: green" transform="translate(80 30)"></rect>
+            <text transform="translate(0 15)">Température</text>
+            <text transform="translate(80 15)">Neige</text>
+            <text transform="translate(0 45)">Pluie</text>
+            <text transform="translate(80 45)">Vent</text>
+        </g>
+    </svg>
     <div id="regionmap"></div>
 </span>
 
