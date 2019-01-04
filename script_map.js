@@ -40,14 +40,27 @@ function createMap(indicator, region) {
         // Pre-processing
         data.forEach(function (d, i) {
             d.date = parseDate(d.Date);
-            d.value = +d[indicator];
+            d.temperature = +d.Temperature;
             d.IDStation = +d.IDStation;
         });
 
         data = d3.nest()
             .key(function(d) { return [d.IDStation, d.Coordonnees];})
             .rollup(function(d) {
-                return d3.mean(d, function(g) {return g.value; });
+                return {
+                    "temperature": d3.mean(d, function(g) {
+                        return g.temperature;
+                    }),
+                    "pluie": d3.mean(d, function (g) {
+                        return g.Pluie24;
+                    }),
+                    "neige": d3.mean(d, function (g) {
+                        return g.Neige;
+                    }),
+                    "vent": d3.mean(d, function (g) {
+                        return g.VitesseVent;
+                    })
+                };
             }).entries(data);
 
         data = data.filter(function (d) {
@@ -57,18 +70,38 @@ function createMap(indicator, region) {
                 && parseFloat(d.key.split(',')[1]) > 40;
         });
 
-        var color = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value;
+        var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value.temperature;
         }))
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
 
-        svg.selectAll("rect")
+        var color_neige = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value.neige;
+        }))
+            .interpolate(d3.interpolateHcl)
+            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
+
+        var color_pluie = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value.pluie;
+        }))
+            .interpolate(d3.interpolateHcl)
+            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
+
+        var color_vent = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value.vent;
+        }))
+            .interpolate(d3.interpolateHcl)
+            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
+
+        var gs = svg.selectAll("g")
             .data(data)
             .enter()
-            .append("rect")
+            .append("g");
+
+        gs.append("rect")
             .style('fill', function (d) {
-                return color(d.value);
+                return color_temperature(d.value.temperature);
             })
             .attr('width', 15)
             .attr('height', 15)
@@ -76,15 +109,17 @@ function createMap(indicator, region) {
                 return "id" + d.key.split(',')[0];
             })
             .attr("transform", function(d) {
-                //console.log(d.Coordonnees)
-                return "translate(" + projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])])  + ")";
+                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                translation[0] += 0;
+                translation[1] += 0;
+                return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
                 d3.selectAll(".id" + d.key.split(',')[0])
                     .transition()
                     .attr('width', 30)
                     .attr('height', 30);
-                createLineChart(indicator, d.key.split(',')[0]);
+                createLineChart("Temperature", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
                 d3.selectAll("rect")
@@ -93,6 +128,97 @@ function createMap(indicator, region) {
                     .attr('height', 15);
                 tooltip.classed('hidden', true)
             });
+
+        gs.append("rect")
+            .style('fill', function (d) {
+                return color_neige(d.value.neige);
+            })
+            .attr('width', 15)
+            .attr('height', 15)
+            .attr("class", function (d) {
+                return "id" + d.key.split(',')[0];
+            })
+            .attr("transform", function(d) {
+                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                translation[0] += 15;
+                translation[1] += 0;
+                return "translate(" + translation + ")";
+            })
+            .on("mouseover", function(d, i) {
+                d3.selectAll(".id" + d.key.split(',')[0])
+                    .transition()
+                    .attr('width', 30)
+                    .attr('height', 30);
+                createLineChart("Neige", d.key.split(',')[0]);
+            })
+            .on("mouseout", function (d) {
+                d3.selectAll("rect")
+                    .transition()
+                    .attr('width', 15)
+                    .attr('height', 15);
+                tooltip.classed('hidden', true)
+            });
+
+        gs.append("rect")
+            .style('fill', function (d) {
+                return color_pluie(d.value.pluie);
+            })
+            .attr('width', 15)
+            .attr('height', 15)
+            .attr("class", function (d) {
+                return "id" + d.key.split(',')[0];
+            })
+            .attr("transform", function(d) {
+                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                translation[0] += 0;
+                translation[1] += 15;
+                return "translate(" + translation + ")";
+            })
+            .on("mouseover", function(d, i) {
+                d3.selectAll(".id" + d.key.split(',')[0])
+                    .transition()
+                    .attr('width', 30)
+                    .attr('height', 30);
+                createLineChart("Pluie24", d.key.split(',')[0]);
+            })
+            .on("mouseout", function (d) {
+                d3.selectAll("rect")
+                    .transition()
+                    .attr('width', 15)
+                    .attr('height', 15);
+                tooltip.classed('hidden', true)
+            });
+
+        gs.append("rect")
+            .style('fill', function (d) {
+                return color_vent(d.value.vent);
+            })
+            .attr('width', 15)
+            .attr('height', 15)
+            .attr("class", function (d) {
+                return "id" + d.key.split(',')[0];
+            })
+            .attr("transform", function(d) {
+                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                translation[0] += 15;
+                translation[1] += 15;
+                return "translate(" + translation + ")";
+            })
+            .on("mouseover", function(d, i) {
+                d3.selectAll(".id" + d.key.split(',')[0])
+                    .transition()
+                    .attr('width', 30)
+                    .attr('height', 30);
+                createLineChart("VitesseVent", d.key.split(',')[0]);
+            })
+            .on("mouseout", function (d) {
+                d3.selectAll("rect")
+                    .transition()
+                    .attr('width', 15)
+                    .attr('height', 15);
+                tooltip.classed('hidden', true)
+            });
+
     });
 }
 
