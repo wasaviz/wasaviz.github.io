@@ -130,10 +130,8 @@ d3.csv("newData.csv", function (data) {
                 .attr('style', 'left:' + (x(d[var_x]) + margin.left + 30) +
                     'px; top:' + (height - y(d[var_y]) - 700) + 'px')
                 .html('Station : ' + d.NomLieu);
-            d3.selectAll(".id" + d.IDStation)
-                .transition()
-                .attr('width', 30)
-                .attr('height', 30);
+            zoomRect(d.IDStation);
+            translateRect(d.IDStation, d.Coordonnees.split(',')[1], d.Coordonnees.split(',')[0]);
             createLineChart(document.getElementById("var_x").value, d.IDStation);
         })
         .on("mouseout", function (d) {

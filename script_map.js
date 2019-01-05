@@ -108,6 +108,9 @@ function createMap(indicator, region) {
             .attr("class", function (d) {
                 return "id" + d.key.split(',')[0];
             })
+            .attr("id", function(d) {
+                return "id" + d.key.split(',')[0] + "0";
+            })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
                 translation[0] += 0;
@@ -115,10 +118,9 @@ function createMap(indicator, region) {
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
-                d3.selectAll(".id" + d.key.split(',')[0])
-                    .transition()
-                    .attr('width', 30)
-                    .attr('height', 30);
+                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                translateRect(d.key.split(',')[0], parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1]))
+                zoomRect(d.key.split(',')[0]);
                 createLineChart("Temperature", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
@@ -135,17 +137,19 @@ function createMap(indicator, region) {
             .attr("class", function (d) {
                 return "id" + d.key.split(',')[0];
             })
+            .attr("id", function(d) {
+                return "id" + d.key.split(',')[0] + "1";
+            })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
-                translation[0] += 15;
+                translation[0] += 20;
                 translation[1] += 0;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
-                d3.selectAll(".id" + d.key.split(',')[0])
-                    .transition()
-                    .attr('width', 30)
-                    .attr('height', 30);
+                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                translateRect(d.key.split(',')[0], parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1]))
+                zoomRect(d.key.split(',')[0]);
                 createLineChart("Neige", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
@@ -162,17 +166,19 @@ function createMap(indicator, region) {
             .attr("class", function (d) {
                 return "id" + d.key.split(',')[0];
             })
+            .attr("id", function(d) {
+                return "id" + d.key.split(',')[0] + "2";
+            })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
                 translation[0] += 0;
-                translation[1] += 15;
+                translation[1] += 20;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
-                d3.selectAll(".id" + d.key.split(',')[0])
-                    .transition()
-                    .attr('width', 30)
-                    .attr('height', 30);
+                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                translateRect(d.key.split(',')[0], parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1]))
+                zoomRect(d.key.split(',')[0]);
                 createLineChart("Pluie24", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
@@ -189,17 +195,19 @@ function createMap(indicator, region) {
             .attr("class", function (d) {
                 return "id" + d.key.split(',')[0];
             })
+            .attr("id", function(d) {
+                return "id" + d.key.split(',')[0] + "3";
+            })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
-                translation[0] += 15;
-                translation[1] += 15;
+                translation[0] += 20;
+                translation[1] += 20;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
-                d3.selectAll(".id" + d.key.split(',')[0])
-                    .transition()
-                    .attr('width', 30)
-                    .attr('height', 30);
+                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                translateRect(d.key.split(',')[0], parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1]))
+                zoomRect(d.key.split(',')[0]);
                 createLineChart("VitesseVent", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
