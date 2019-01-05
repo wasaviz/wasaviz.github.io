@@ -71,7 +71,7 @@ Temps :
 </span>
 
 <span id="regionmap-container">
-    <svg width="100%">
+    <svg width="100%" id="legend">
         <g>
             <rect height="30" width="80" style="fill: red" transform="translate(0 0)"></rect>
             <rect height="30" width="80" style="fill: white" transform="translate(80 0)"></rect>
@@ -89,10 +89,12 @@ Temps :
               <stop offset="100%" style="stop-color:rgb(247,9,9);stop-opacity:1"/>
             </linearGradient>
         </defs>
-        <rect x="200" y="0" width="400" height="60" fill="url(#grad1)"/>
+        <rect id="gradient" x="200" y="0" width="400" height="60" fill="url(#grad1)"/>
     </svg>
     <div id="regionmap"></div>
 </span>
+
+<script src="utils.js"></script>
 
 <script src="movingChart.js"></script>
 

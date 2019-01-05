@@ -122,10 +122,7 @@ function createMap(indicator, region) {
                 createLineChart("Temperature", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
-                d3.selectAll("rect")
-                    .transition()
-                    .attr('width', 15)
-                    .attr('height', 15);
+                reduceRect();
                 tooltip.classed('hidden', true)
             });
 
@@ -152,10 +149,7 @@ function createMap(indicator, region) {
                 createLineChart("Neige", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
-                d3.selectAll("rect")
-                    .transition()
-                    .attr('width', 15)
-                    .attr('height', 15);
+                reduceRect();
                 tooltip.classed('hidden', true)
             });
 
@@ -182,10 +176,7 @@ function createMap(indicator, region) {
                 createLineChart("Pluie24", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
-                d3.selectAll("rect")
-                    .transition()
-                    .attr('width', 15)
-                    .attr('height', 15);
+                reduceRect();
                 tooltip.classed('hidden', true)
             });
 
@@ -212,10 +203,7 @@ function createMap(indicator, region) {
                 createLineChart("VitesseVent", d.key.split(',')[0]);
             })
             .on("mouseout", function (d) {
-                d3.selectAll("rect")
-                    .transition()
-                    .attr('width', 15)
-                    .attr('height', 15);
+                reduceRect();
                 tooltip.classed('hidden', true)
             });
 

@@ -137,10 +137,7 @@ d3.csv("newData.csv", function (data) {
             createLineChart(document.getElementById("var_x").value, d.IDStation);
         })
         .on("mouseout", function (d) {
-            d3.selectAll("rect")
-                .transition()
-                .attr('width', 15)
-                .attr('height', 15);
+            reduceRect();
             tooltip.classed('hidden', true)
         })
         .style('stroke-width', 0.5)
