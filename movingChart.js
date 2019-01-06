@@ -168,7 +168,6 @@ d3.csv("newData.csv", function (data) {
 
 //updates the chart when varibles or time change
 function createGraph(var_x, var_y, time, transition_time) {
-    console.log('in create : ', time)
     document.getElementById("time").value = times[time]
     d3.csv("newData.csv", function (data) {
 
@@ -242,10 +241,11 @@ var color_seasons = {
     'Fall': '#fee0d2'
 };
 
+var mov;
+ 
 function movie(var_x, var_y, time_step) {
     var i = 0;
-    var mov = setInterval(draw, 100);
-
+    mov = setInterval(draw, 100);
     function draw() {
         if (i < times.length - 1) {
             document.getElementById('timeRange').value = i
@@ -256,4 +256,8 @@ function movie(var_x, var_y, time_step) {
             clearInterval(mov);
         }
     }
+}
+
+function stopMovie(){
+	clearInterval(mov)
 }
