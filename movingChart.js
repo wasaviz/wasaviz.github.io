@@ -124,8 +124,8 @@ d3.csv("newData.csv", function (data) {
                 return e === d;
             })
                 .transition()
-                .attr('width', 30)
-                .attr('height', 30);
+                .attr('width', 40)
+                .attr('height', 40);
             tooltip.classed('hidden', false)
                 .attr('style', 'left:' + (x(d[var_x]) + margin.left + 30) +
                     'px; top:' + (height - y(d[var_y]) - 700) + 'px')

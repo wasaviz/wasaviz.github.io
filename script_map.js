@@ -70,7 +70,7 @@ function createMap(indicator, region) {
                 && parseFloat(d.key.split(',')[1]) > 40;
         });
 
-        var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
+        /*var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
             return d.value.temperature;
         }))
             .interpolate(d3.interpolateHcl)
@@ -92,7 +92,31 @@ function createMap(indicator, region) {
             return d.value.vent;
         }))
             .interpolate(d3.interpolateHcl)
-            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
+            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);*/
+            
+        var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value.temperature;
+        }))
+            .interpolate(d3.interpolateHcl)
+            .range([d3.rgb('#fee0d2'), d3.rgb('#e31a1c')]);
+
+        var color_neige = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value.neige;
+        }))
+            .interpolate(d3.interpolateHcl)
+            .range([d3.rgb('#f0f0f0'), d3.rgb('#636363')]);
+
+        var color_pluie = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value.pluie;
+        }))
+            .interpolate(d3.interpolateHcl)
+            .range([d3.rgb('#deebf7'), d3.rgb('#2171b5')]);
+
+        var color_vent = d3.scaleLinear().domain(d3.extent(data, function (d) {
+            return d.value.vent;
+        }))
+            .interpolate(d3.interpolateHcl)
+            .range([d3.rgb('#edf8e9'), d3.rgb('#238b45')]);
 
         var gs = svg.selectAll("g")
             .data(data)
@@ -214,6 +238,10 @@ function createMap(indicator, region) {
                 reduceRect();
                 tooltip.classed('hidden', true)
             });
+            
+        gs.selectAll("rect")
+        .style('stroke-width', 0.5)
+        .style('stroke', 'black');
 
     });
 }
