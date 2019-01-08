@@ -82,8 +82,11 @@ body {
     grid-column-end: end;
     grid-row-start: 1;
     grid-row-end: 1;
+    text-align: center;
 }
 
 #linechart-placeholder {
     position: center;
 }
+
+
