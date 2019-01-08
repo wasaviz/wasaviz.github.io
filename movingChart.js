@@ -117,7 +117,7 @@ d3.csv("newData.csv", function (data) {
             return x(d[var_x]) + margin.left;
         })
         .attr('y', function (d) {
-            return height - y(d[var_y]);
+            return height - y(d[var_y])-15;
         })
         .on("mouseover", function (d) {
             d3.selectAll("rect").filter(function (e) {
@@ -210,7 +210,7 @@ function createGraph(var_x, var_y, time, transition_time) {
                 return x(d[var_x]);
             })
             .attr('y', function (d) {
-                return height - y(d[var_y]);
+                return height - y(d[var_y])-15;
             });
 
         //affichage des axes
@@ -244,7 +244,8 @@ var color_seasons = {
 var mov;
  
 function movie(var_x, var_y, time_step) {
-    var i = 0;
+    var i = parseInt(document.getElementById("timeRange").value)
+    console.log(i)
     mov = setInterval(draw, 100);
     function draw() {
         if (i < times.length - 1) {
