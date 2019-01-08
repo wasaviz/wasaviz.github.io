@@ -161,7 +161,7 @@ function createLineChart(indicator, region) {
 
                 tooltip.classed('hidden', false)
                     .attr('style', 'left:' + (x(d.date) - 20) +
-                        'px; top:' + (height - y(d.value) - 700) + 'px;')
+                        'px; top:' + (height - y(d.value) - 250) + 'px;')
                     .html(formatDecimal(d.value) + dictIndicatorUnit[indicator] + " <br> " + displayDate(d.date));
             })
             .on("mouseout", function (d, i) {
