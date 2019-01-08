@@ -9,7 +9,7 @@ function reduceRect() {
     gLegend.selectAll("rect")
         .transition()
         .attr("height", 30)
-        .attr("width", 80);
+        .attr("width", 120);
 
     d3.select("#gradient")
         .transition()
