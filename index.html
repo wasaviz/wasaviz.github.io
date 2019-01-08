@@ -17,7 +17,7 @@
 <span id="header">
     <h1>Rain, wind, snow: how has climate changed in Metropolitan France from 2010 to 2018?</h1>
 
-    <p>A visualization of water and temperature changes in France by regions, from 2010 to 2018.</p>
+    <h2>A visualization of 4 whether classical indicators changes in France by regions, from 2010 to 2018.</h2>
 </span>
 
 <span id="regiongraph-container">
@@ -95,19 +95,25 @@ Temps :
               <stop offset="0%" style="stop-color:#edf8e9;stop-opacity:1"/>
               <stop offset="100%" style="stop-color:#238b45;stop-opacity:1"/>
             </linearGradient>
-            
-            
         </defs>
         
         <g>
-            <rect height="30" width="90" style="fill: url(#grad_temp)" transform="translate(0 0)"></rect>
-            <rect height="30" width="90" style="fill: url(#grad_neige)" transform="translate(95 0)"></rect>
-            <rect height="30" width="90" style="fill: url(#grad_pluie)", "stroke-width": 0.5, "stroke": "black" transform="translate(0 35)"></rect>
-            <rect height="30" width="90" style="fill: url(#grad_vent)" transform="translate(95 35)"></rect>
-            <text transform="translate(1 20)">Température</text>
-            <text transform="translate(95 20)">Neige</text>
-            <text transform="translate(5 55)">Pluie</text>
-            <text transform="translate(95 55)">Vent</text>
+            <rect height="30" width="90" style="fill: url(#grad_temp); stroke-width: 0.5; stroke: black" transform="translate(50 0)"></rect>
+            <rect height="30" width="90" style="fill: url(#grad_neige); stroke-width: 0.5; stroke: black" transform="translate(300 0)"></rect>
+            <rect height="30" width="90" style="fill: url(#grad_pluie); stroke-width: 0.5; stroke: black" transform="translate(50 35)"></rect>
+            <rect height="30" width="90" style="fill: url(#grad_vent); stroke-width: 0.5; stroke: black" transform="translate(300 35)"></rect>
+            <text transform="translate(55 20)">Température</text>
+            <text transform="translate(1 20)">9.27°C</text>
+            <text transform="translate(145 20)">16.60°C</text>
+            <text transform="translate(305 20)">Neige</text>
+            <text transform="translate(245 20)">0mm</text>
+            <text transform="translate(400 20)">0.001mm</text>
+            <text transform="translate(55 55)">Pluie</text>
+            <text transform="translate(1 55)">0.6mm</text>
+            <text transform="translate(145 55)">1.5mm</text>
+            <text transform="translate(305 55)">Vent</text>
+            <text transform="translate(245 55)">2.0km/h</text>
+            <text transform="translate(400 55)">6.6km/h</text>
         </g>
 
         <defs>
