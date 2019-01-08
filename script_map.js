@@ -93,7 +93,7 @@ function createMap(indicator, region) {
         }))
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);*/
-            
+
         var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
             return d.value.temperature;
         }))

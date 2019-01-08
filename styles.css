@@ -46,7 +46,7 @@ body {
     background-color: #fcffe8;
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 100px 600px 700px 100px;
+    grid-template-rows: 150px 600px 700px 100px;
 }
 
 #regionmap-container {
