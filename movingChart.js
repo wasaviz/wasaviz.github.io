@@ -128,7 +128,7 @@ d3.csv("newData.csv", function (data) {
                 .attr('height', 40);
             tooltip.classed('hidden', false)
                 .attr('style', 'left:' + (x(d[var_x]) + margin.left + 30) +
-                    'px; top:' + (height - y(d[var_y]) - 700) + 'px')
+                    'px; top:' + (height - y(d[var_y]) - 400) + 'px')
                 .html('Station : ' + d.NomLieu);
             zoomRect(d.IDStation);
             translateRect(d.IDStation, d.Coordonnees.split(',')[1], d.Coordonnees.split(',')[0]);
