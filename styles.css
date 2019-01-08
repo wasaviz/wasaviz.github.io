@@ -43,13 +43,13 @@ div#tooltip-line {
 
 
 body {
+    background-color: #fcffe8;
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 100px 800px 700px 100px;
+    grid-template-rows: 100px 600px 700px 100px;
 }
 
 #regionmap-container {
-    background-color: lightcyan;
     grid-column-start: 1;
     grid-column-end: 1;
     grid-row-start: 2;
@@ -57,7 +57,6 @@ body {
 }
 
 #linechart-container {
-    background-color: lightgoldenrodyellow;
     grid-column-start: 1;
     grid-column-end: end;
     grid-row-start: 3;
@@ -65,7 +64,6 @@ body {
 }
 
 #regiongraph-container {
-    background-color: #fde0dd;
     grid-column-start: 2;
     grid-column-end: end;
     grid-row-start: 2;
@@ -84,8 +82,11 @@ body {
     grid-column-end: end;
     grid-row-start: 1;
     grid-row-end: 1;
+    text-align: center;
 }
 
 #linechart-placeholder {
     position: center;
 }
+
+
