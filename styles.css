@@ -65,7 +65,7 @@ body {
 }
 
 #regiongraph-container {
-    background-color: lightpink;
+    background-color: #fde0dd;
     grid-column-start: 2;
     grid-column-end: end;
     grid-row-start: 2;
