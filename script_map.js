@@ -18,7 +18,7 @@ function createMap(indicator, region) {
 
 
 
-    var projection = d3.geoConicConformal().center([6.454071, 47.279229]).scale(2800);
+    var projection = d3.geoConicConformal().center([6.454071, 45.279229]).scale(2400);
 
     var path = d3.geoPath() // d3.geo.path avec d3 version 3
         .projection(projection);
