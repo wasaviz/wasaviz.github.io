@@ -15,41 +15,41 @@
 <body>
 
 <span id="header">
-    <h1>Rain, wind, snow: how has climate changed in Metropolitan France from 2010 to 2018?</h1>
+    <h1>Rain, wind, snow: how has climate changed in mainland France from 2010 to 2018?</h1>
 
-    <h2>A visualization of 4 whether classical indicators changes in France by regions, from 2010 to 2018.</h2>
+    <h2>A visualization of 4 weather indicators and their changes in France by regions, from 2010 to 2018.</h2>
 </span>
 
 <span id="regiongraph-container">
-Abscisses : 
+X-axis: 
 <select id="var_x"
         onchange="createGraph(this.value, document.getElementById('var_y').value, document.getElementById('timeRange').value, 2000)">
-    <option value="Temperature">Température</option>
-    <option value="VitesseVent">Vitesse moyenne du vent</option>
-    <option value="Pluie1">Pluie à 1 heure</option>
-    <option value="Pluie3">Pluie à 3 heures</option>
-    <option value="Pluie6">Pluie à 6 heures</option>
-    <option value="Pluie12">Pluie à 12 heures</option>
-    <option value="Pluie24">Pluie à 24 heures</option>
-    <option value="Neige">Hauteur de neige</option>
-    <option value="NeigeFraiche">Hauteur de neige fraiche</option>
+    <option value="Temperature">Temperature</option>
+    <option value="VitesseVent">Mean wind speed</option>
+    <option value="Pluie1">Rain in 1h</option>
+    <option value="Pluie3">Rain in 3h</option>
+    <option value="Pluie6">Rain in 6h</option>
+    <option value="Pluie12">Rain in 12h</option>
+    <option value="Pluie24">Rain in 24h</option>
+    <option value="Neige">Snow height</option>
+    <option value="NeigeFraiche">Fresh snow height</option>
 </select>
 
-Ordonnées :
+Y-axis:
 <select id="var_y"
         onchange="createGraph(document.getElementById('var_x').value, this.value, document.getElementById('timeRange').value, 2000)">
-	<option value="Pluie24">Pluie à 24 heures</option>
-    <option value="Temperature">Température</option>
-    <option value="VitesseVent">Vitesse moyenne du vent</option>
-    <option value="Pluie1">Pluie à 1 heure</option>
-    <option value="Pluie3">Pluie à 3 heures</option>
-    <option value="Pluie6">Pluie à 6 heures</option>
-    <option value="Pluie12">Pluie à 12 heures</option>
-    <option value="Neige">Hauteur de neige</option>
-    <option value="NeigeFraiche">Hauteur de neige fraiche</option>
+	<option value="Pluie24">Rain in 24h</option>
+    <option value="Temperature">Temperature</option>
+    <option value="VitesseVent">Mean wind speed</option>
+    <option value="Pluie1">Rain in 1h</option>
+    <option value="Pluie3">Rain in 3h</option>
+    <option value="Pluie6">Rain in 6h</option>
+    <option value="Pluie12">Rain in 12h</option>
+    <option value="Neige">Snow height</option>
+    <option value="NeigeFraiche">Fresh snow height</option>
 </select>
 
-Temps : 
+Time: 
 <select id="time"></select>
 
 <input type="range" min="1" max="50" value="0" class="slider" id="timeRange"
@@ -69,7 +69,7 @@ Temps :
 
 <span id="linechart-container">
     <div id="linechart">
-        <p id="linechart-placeholder">Hover a square on the map or on the graph to show several information.</p>
+        <p id="linechart-placeholder">Hover over a square on the map or on the graph to show detailed information.</p>
     </div>
 </span>
 
@@ -102,16 +102,16 @@ Temps :
             <rect height="30" width="120" style="fill: url(#grad_neige); stroke-width: 0.5; stroke: black" transform="translate(300 0)"></rect>
             <rect height="30" width="120" style="fill: url(#grad_pluie); stroke-width: 0.5; stroke: black" transform="translate(50 35)"></rect>
             <rect height="30" width="120" style="fill: url(#grad_vent); stroke-width: 0.5; stroke: black" transform="translate(300 35)"></rect>
-            <text transform="translate(55 20)">Température</text>
+            <text transform="translate(55 20)">Temperature</text>
             <text transform="translate(1 20)">9.27°C</text>
             <text transform="translate(175 20)">16.60°C</text>
-            <text transform="translate(335 20)">Neige</text>
+            <text transform="translate(335 20)">Snow</text>
             <text transform="translate(240 20)">0mm</text>
             <text transform="translate(430 20)">0.001mm</text>
-            <text transform="translate(85 55)">Pluie</text>
+            <text transform="translate(85 55)">Rain</text>
             <text transform="translate(1 55)">0.6mm</text>
             <text transform="translate(175 55)">1.5mm</text>
-            <text transform="translate(335 55)">Vent</text>
+            <text transform="translate(335 55)">Wind</text>
             <text transform="translate(240 55)">2.0km/h</text>
             <text transform="translate(430 55)">6.6km/h</text>
         </g>
@@ -137,7 +137,7 @@ Temps :
 
 <script src="main.js"></script>
 
-<footer id="footer">Homemade by: CASSAN Océane, COTTET Clément, PISTER Alexis, TEITGEN Raphaël, VERKIN Louise</footer>
+<footer id="footer">Homemade by: CASSAN Océane, COTTET Clément, TEITGEN Raphaël, VERKIN Louise</footer>
 
 </body>
 </html>
