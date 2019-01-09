@@ -8,7 +8,6 @@
     font-weight: bold;
 }
 #regionGraphTitle {
-    color: darkRed;
     font-weight: bold;
 }
 
@@ -42,7 +41,8 @@ div#tooltip-line {
 
 
 body {
-    background-color: #fcffe8;
+    background-color: #edfffd;
+    color: #3f3f3f;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 150px 375px 300px 100px;
