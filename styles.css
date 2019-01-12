@@ -45,7 +45,7 @@ body {
     color: #3f3f3f;
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 150px 375px 300px 100px;
+    grid-template-rows: 155px 375px 300px 100px;
 }
 
 #regionmap-container {
@@ -93,6 +93,10 @@ body {
 
 #indicator {
     stroke: darkred;
+}
+
+#timeRange {
+    width: 50%;
 }
 
 
