@@ -1,4 +1,7 @@
 function reduceRect() {
+    var margin = {top: 20, right: 20, bottom: 50, left: 70},
+        height = document.getElementById("linechart-container").offsetHeight - 100 - margin.top - margin.bottom;
+
     d3.selectAll("rect")
         .transition()
         .attr('width', 15)
@@ -15,6 +18,11 @@ function reduceRect() {
         .transition()
         .attr("height", 60)
         .attr("width", 400);
+
+    d3.select("#indicator")
+        .transition()
+        .attr("height", height)
+        .attr("width", 0.1);
 }
 
 function zoomRect(idStation) {
@@ -58,4 +66,11 @@ function translateRect(idStation, lat, lon) {
 
     d3.selectAll("#id" + idStation + "3")
         .attr("transform", "translate(" + translation + ")");*/
+}
+
+function onTimeChange(var_x, var_y, time, transition_time) {
+    createMap("Temperature", 7149, time);
+    createGraph(var_x, var_y, time, transition_time);
+    var indicateur = document.getElementById("linechart").getAttribute("class");
+    createLineChart(indicateur.split("-")[0], indicateur.split("-")[1], time);
 }

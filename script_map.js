@@ -1,4 +1,4 @@
-function createMap(indicator, region) {
+function createMap(indicator, region, time) {
 
     region = +region;
 
@@ -42,9 +42,19 @@ function createMap(indicator, region) {
             d.date = parseDate(d.Date);
             d.temperature = +d.Temperature;
             d.IDStation = +d.IDStation;
+            d.neige = +d.Neige;
+            d.pluie = +d.Pluie24;
+            d.vent = +d.VitesseVent;
         });
 
-        data = d3.nest()
+        var times = [];
+        for (var i = 0; i < data.length; i++) {
+            if (!times.includes(data[i].Date)) {
+                times.push(data[i].Date);
+            }
+        }
+
+        /*data = d3.nest()
             .key(function(d) { return [d.IDStation, d.Coordonnees];})
             .rollup(function(d) {
                 return {
@@ -61,14 +71,16 @@ function createMap(indicator, region) {
                         return g.VitesseVent;
                     })
                 };
-            }).entries(data);
+            }).entries(data);*/
 
         data = data.filter(function (d) {
-            return parseFloat(d.key.split(',')[2]) < 11
-                && parseFloat(d.key.split(',')[2]) > -5
-                && parseFloat(d.key.split(',')[1]) < 51
-                && parseFloat(d.key.split(',')[1]) > 40;
+            return parseFloat(d.Coordonnees.split(',')[1]) < 11
+                && parseFloat(d.Coordonnees.split(',')[1]) > -5
+                && parseFloat(d.Coordonnees.split(',')[0]) < 51
+                && parseFloat(d.Coordonnees.split(',')[0]) > 40
+                && d.Date == times[time];
         });
+        document.getElementById("time").innerText = times[time];
 
         /*var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
             return d.value.temperature;
@@ -95,25 +107,25 @@ function createMap(indicator, region) {
             .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);*/
 
         var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value.temperature;
+            return d.temperature;
         }))
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#fee0d2'), d3.rgb('#e31a1c')]);
 
         var color_neige = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value.neige;
+            return d.neige;
         }))
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#f0f0f0'), d3.rgb('#636363')]);
 
         var color_pluie = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value.pluie;
+            return d.pluie;
         }))
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#deebf7'), d3.rgb('#2171b5')]);
 
         var color_vent = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value.vent;
+            return d.vent;
         }))
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#edf8e9'), d3.rgb('#238b45')]);
@@ -125,27 +137,27 @@ function createMap(indicator, region) {
 
         gs.append("rect")
             .style('fill', function (d) {
-                return color_temperature(d.value.temperature);
+                return color_temperature(d.temperature);
             })
             .attr('width', 15)
             .attr('height', 15)
             .attr("class", function (d) {
-                return "id" + d.key.split(',')[0];
+                return "id" + d.IDStation;
             })
             .attr("id", function(d) {
-                return "id" + d.key.split(',')[0] + "0";
+                return "id" + d.IDStation + "0";
             })
             .attr("transform", function(d) {
-                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
                 translation[0] += 0;
                 translation[1] += 0;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
-                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
-                translateRect(d.key.split(',')[0], parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1]))
-                zoomRect(d.key.split(',')[0]);
-                createLineChart("Temperature", d.key.split(',')[0]);
+                var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
+                translateRect(d.IDStation, parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0]))
+                zoomRect(d.IDStation);
+                createLineChart("Temperature", d.IDStation, times[time]);
             })
             .on("mouseout", function (d) {
                 reduceRect();
@@ -154,56 +166,27 @@ function createMap(indicator, region) {
 
         gs.append("rect")
             .style('fill', function (d) {
-                return color_neige(d.value.neige);
+                return color_neige(d.neige);
             })
             .attr('width', 15)
             .attr('height', 15)
             .attr("class", function (d) {
-                return "id" + d.key.split(',')[0];
+                return "id" + d.IDStation;
             })
             .attr("id", function(d) {
-                return "id" + d.key.split(',')[0] + "1";
+                return "id" + d.IDStation + "0";
             })
             .attr("transform", function(d) {
-                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
-                translation[0] += 20;
-                translation[1] += 0;
-                return "translate(" + translation + ")";
-            })
-            .on("mouseover", function(d, i) {
-                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
-                translateRect(d.key.split(',')[0], parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1]))
-                zoomRect(d.key.split(',')[0]);
-                createLineChart("Neige", d.key.split(',')[0]);
-            })
-            .on("mouseout", function (d) {
-                reduceRect();
-                tooltip.classed('hidden', true)
-            });
-
-        gs.append("rect")
-            .style('fill', function (d) {
-                return color_pluie(d.value.pluie);
-            })
-            .attr('width', 15)
-            .attr('height', 15)
-            .attr("class", function (d) {
-                return "id" + d.key.split(',')[0];
-            })
-            .attr("id", function(d) {
-                return "id" + d.key.split(',')[0] + "2";
-            })
-            .attr("transform", function(d) {
-                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
                 translation[0] += 0;
                 translation[1] += 20;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
-                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
-                translateRect(d.key.split(',')[0], parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1]))
-                zoomRect(d.key.split(',')[0]);
-                createLineChart("Pluie24", d.key.split(',')[0]);
+                var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
+                translateRect(d.IDStation, parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0]))
+                zoomRect(d.IDStation);
+                createLineChart("Neige", d.IDStation, times[time]);
             })
             .on("mouseout", function (d) {
                 reduceRect();
@@ -212,27 +195,56 @@ function createMap(indicator, region) {
 
         gs.append("rect")
             .style('fill', function (d) {
-                return color_vent(d.value.vent);
+                return color_pluie(d.pluie);
             })
             .attr('width', 15)
             .attr('height', 15)
             .attr("class", function (d) {
-                return "id" + d.key.split(',')[0];
+                return "id" + d.IDStation;
             })
             .attr("id", function(d) {
-                return "id" + d.key.split(',')[0] + "3";
+                return "id" + d.IDStation + "0";
             })
             .attr("transform", function(d) {
-                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
+                var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
+                translation[0] += 20;
+                translation[1] += 0;
+                return "translate(" + translation + ")";
+            })
+            .on("mouseover", function(d, i) {
+                var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
+                translateRect(d.IDStation, parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0]))
+                zoomRect(d.IDStation);
+                createLineChart("Pluie24", d.IDStation, times[time]);
+            })
+            .on("mouseout", function (d) {
+                reduceRect();
+                tooltip.classed('hidden', true)
+            });
+
+        gs.append("rect")
+            .style('fill', function (d) {
+                return color_vent(d.vent);
+            })
+            .attr('width', 15)
+            .attr('height', 15)
+            .attr("class", function (d) {
+                return "id" + d.IDStation;
+            })
+            .attr("id", function(d) {
+                return "id" + d.IDStation + "0";
+            })
+            .attr("transform", function(d) {
+                var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
                 translation[0] += 20;
                 translation[1] += 20;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
-                var translation = projection([parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1])]);
-                translateRect(d.key.split(',')[0], parseFloat(d.key.split(',')[2]), parseFloat(d.key.split(',')[1]))
-                zoomRect(d.key.split(',')[0]);
-                createLineChart("VitesseVent", d.key.split(',')[0]);
+                var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
+                translateRect(d.IDStation, parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0]))
+                zoomRect(d.IDStation);
+                createLineChart("VitesseVent", d.IDStation, times[time]);
             })
             .on("mouseout", function (d) {
                 reduceRect();
@@ -246,4 +258,4 @@ function createMap(indicator, region) {
     });
 }
 
-createMap("Temperature", 7149);
+createMap("Temperature", 7149, 0);

@@ -91,4 +91,8 @@ body {
     font-family: sans-serif;
 }
 
+#indicator {
+    stroke: darkred;
+}
+
 

@@ -54,23 +54,18 @@ d3.csv("newData.csv", function (data) {
 
     var var_x = document.getElementById("var_x").value
     var var_y = document.getElementById("var_y").value
-    var select = document.getElementById("time");
     //fills the time values in the select box
     for (var i = 0; i < data.length; i++) {
         if (!times.includes(data[i].Date)) {
             times.push(data[i].Date);
-            var option = document.createElement("option");
-            option.value = data[i].Date;
-            option.text = data[i].Date;
-            option.id = data[i].Date;
-            select.appendChild(option);
         }
     }
     //initialize the time slider
     document.getElementById('timeRange').min = 0
     document.getElementById('timeRange').max = times.length - 1
 
-    let time = times[0]
+    let time = times[0];
+    document.getElementById("time").innerText = times[time];
 
     //filter data
     data = data.filter(function (d) {
@@ -132,7 +127,7 @@ d3.csv("newData.csv", function (data) {
                 .html('Station : ' + d.NomLieu);
             zoomRect(d.IDStation);
             translateRect(d.IDStation, d.Coordonnees.split(',')[1], d.Coordonnees.split(',')[0]);
-            createLineChart(document.getElementById("var_x").value, d.IDStation);
+            createLineChart(document.getElementById("var_x").value, d.IDStation, times[document.getElementById('timeRange').value]);
         })
         .on("mouseout", function (d) {
             reduceRect();
@@ -168,7 +163,7 @@ d3.csv("newData.csv", function (data) {
 
 //updates the chart when varibles or time change
 function createGraph(var_x, var_y, time, transition_time) {
-    document.getElementById("time").value = times[time]
+    //document.getElementById("time").innerText = times[time];
     d3.csv("newData.csv", function (data) {
 
         data = data.filter(function (d) {
@@ -244,12 +239,11 @@ var color_seasons = {
 var mov;
  
 function movie(var_x, var_y, time_step) {
-    var i = parseInt(document.getElementById("timeRange").value)
-    console.log(i)
+    var i = parseInt(document.getElementById("timeRange").value);
     mov = setInterval(draw, 100);
     function draw() {
         if (i < times.length - 1) {
-            document.getElementById('timeRange').value = i
+            //document.getElementById('timeRange').value = i
             createGraph(var_x, var_y, i, 10);
             i = i + 1;
             movie_label.text(seasons[times[i].split('-')[1]] + ' ' + times[i].split('-')[0])

@@ -18,6 +18,11 @@
     <h1>Rain, wind, snow: how has climate changed in mainland France from 2010 to 2018?</h1>
 
     <h2>A visualization of 4 weather indicators and their changes in France by regions, from 2010 to 2018.</h2>
+
+    Time:
+    <input type="range" min="1" max="50" value="0" class="slider" id="timeRange"
+       onchange="onTimeChange(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value, 2000)">
+    <label for="timeRange" id="time"></label>
 </span>
 
 <span id="regiongraph-container">
@@ -48,12 +53,6 @@ Y-axis:
     <option value="Neige">Snow height</option>
     <option value="NeigeFraiche">Fresh snow height</option>
 </select>
-
-Time: 
-<select id="time"></select>
-
-<input type="range" min="1" max="50" value="0" class="slider" id="timeRange"
-       onchange="createGraph(document.getElementById('var_x').value, document.getElementById('var_y').value, this.value, 2000)">
 
 <button id="movieButton"
         onclick="movie(document.getElementById('var_x').value, document.getElementById('var_y').value, 500)">Start movie</button>

@@ -10,13 +10,14 @@ var dictIndicatorUnit = {
     "NeigeFraiche": "m"
 }
 
-function createLineChart(indicator, region) {
+function createLineChart(indicator, region, time) {
 
     region = +region;
 
     document.getElementById("linechart").remove();
     var newLinechart = document.createElement("div");
     newLinechart.setAttribute("id", "linechart");
+    newLinechart.setAttribute("class", indicator + "-" + region);
     document.getElementById("linechart-container").appendChild(newLinechart);
 
     d3.select("body").select("#linechart")
@@ -56,6 +57,13 @@ function createLineChart(indicator, region) {
 
 
     d3.csv("newData.csv", function (data) {
+
+        var times = [];
+        for (var i = 0; i < data.length; i++) {
+            if (!times.includes(data[i].Date)) {
+                times.push(data[i].Date);
+            }
+        }
 
         let ville;
         // Pre-processing
@@ -111,10 +119,26 @@ function createLineChart(indicator, region) {
         svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 0 - margin.left)
-            .attr("x",0 - (height / 2))
+            .attr("x", 0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text(indicator);
+
+        if (time.includes("-")) {
+            g.append("rect")
+                .attr("id", "indicator")
+                .attr("x", x(parseDate(time)))
+                .attr("y", 0)
+                .attr("width", 0.2)
+                .attr("height", height);
+        } else {
+            g.append("rect")
+                .attr("id", "indicator")
+                .attr("x", x(parseDate(times[time])))
+                .attr("y", 0)
+                .attr("width", 0.2)
+                .attr("height", height);
+        }
 
         data = data.filter(function (d) {
             return d.IDStation === region;
@@ -124,7 +148,6 @@ function createLineChart(indicator, region) {
 
         d3.select("#linechartTitle")
             .text(indicator + " in station n°" + region + " : " + ville);
-
 
         //Affichage de la courbe
         var line = d3.line()
