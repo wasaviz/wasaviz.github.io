@@ -82,53 +82,43 @@ function createMap(indicator, region, time) {
         });
         document.getElementById("time").innerText = times[time];
 
-        /*var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value.temperature;
-        }))
-            .interpolate(d3.interpolateHcl)
-            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
-
-        var color_neige = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value.neige;
-        }))
-            .interpolate(d3.interpolateHcl)
-            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
-
-        var color_pluie = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value.pluie;
-        }))
-            .interpolate(d3.interpolateHcl)
-            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);
-
-        var color_vent = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.value.vent;
-        }))
-            .interpolate(d3.interpolateHcl)
-            .range([d3.rgb('#42f4f4'), d3.rgb('#f70909')]);*/
-
-        var color_temperature = d3.scaleLinear().domain(d3.extent(data, function (d) {
+        extent_temperature = d3.extent(data, function (d) {
             return d.temperature;
-        }))
+        });
+        extent_neige = d3.extent(data, function (d) {
+            return d.neige;
+        });
+        extent_pluie = d3.extent(data, function (d) {
+            return d.pluie;
+        });
+        extent_vent = d3.extent(data, function (d) {
+            return d.vent;
+        });
+
+        var color_temperature = d3.scaleLinear().domain(extent_temperature)
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#fee0d2'), d3.rgb('#e31a1c')]);
 
-        var color_neige = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.neige;
-        }))
+        var color_neige = d3.scaleLinear().domain(extent_neige)
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#f0f0f0'), d3.rgb('#636363')]);
 
-        var color_pluie = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.pluie;
-        }))
+        var color_pluie = d3.scaleLinear().domain(extent_pluie)
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#deebf7'), d3.rgb('#2171b5')]);
 
-        var color_vent = d3.scaleLinear().domain(d3.extent(data, function (d) {
-            return d.vent;
-        }))
+        var color_vent = d3.scaleLinear().domain(extent_vent)
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#edf8e9'), d3.rgb('#238b45')]);
+
+        document.getElementById("min-temperature").innerHTML = extent_temperature[0].toFixed(2) + "°C";
+        document.getElementById("max-temperature").innerHTML = extent_temperature[1].toFixed(2) + "°C";
+        document.getElementById("min-pluie").innerHTML = extent_pluie[0].toFixed(2) + "mm";
+        document.getElementById("max-pluie").innerHTML = extent_pluie[1].toFixed(2) + "mm";
+        document.getElementById("min-neige").innerHTML = extent_neige[0].toFixed(2) + "mm";
+        document.getElementById("max-neige").innerHTML = extent_neige[1].toFixed(2) + "mm";
+        document.getElementById("min-vent").innerHTML = extent_vent[0].toFixed(2) + "km/h";
+        document.getElementById("max-vent").innerHTML = extent_vent[1].toFixed(2) + "km/h";
 
         var gs = svg.selectAll("g")
             .data(data)
