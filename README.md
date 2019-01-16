@@ -20,7 +20,7 @@ We designed an application composed by three connected visualisations :
 
 The different visualisations are linked to each other, such as when a station is hovered over in a graph, it is also enlarged in the other one. 
 
-### What we leanrt
+### What we learnt
 
 First of all, the different climates in France are visible : the temperatures are high is the southern places, whereas the rain levels are high in Bretagne, as well as the wind speed. The snow height is more important in the East regions.
 
