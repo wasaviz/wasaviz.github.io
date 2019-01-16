@@ -25,3 +25,4 @@ The different visualisations are linked to each other, such as when a station is
 First of all, the different climates in France are visible : the temperatures are high is the southern places, whereas the rain levels are high in Bretagne, as well as the wind speed. The snow height is more important in the East regions.
 
 Something else we noticed is the dramatic increase of rain episodes intensity in the second half of our timespan. It clearly appears in the rain line charts, but also in the movies of the projection graph involving rain levels.
+<p align="center" ><img src="Images\rain.PNG" width="900" height="300"/> </p>
