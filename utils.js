@@ -4,8 +4,7 @@ function reduceRect() {
 
     d3.selectAll("rect")
         .transition()
-        .attr('width', 15)
-        .attr('height', 15);
+        .style('stroke-width', 0.5);
 
     var gLegend = d3.select("#legend").select("g");
 
@@ -28,8 +27,7 @@ function reduceRect() {
 function zoomRect(idStation) {
     d3.selectAll(".id" + idStation)
         .transition()
-        .attr('width', 20)
-        .attr('height', 20);
+        .style('stroke-width', 2);
 }
 
 function translateRect(idStation, lat, lon) {

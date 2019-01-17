@@ -54,25 +54,6 @@ function createMap(indicator, region, time) {
             }
         }
 
-        /*data = d3.nest()
-            .key(function(d) { return [d.IDStation, d.Coordonnees];})
-            .rollup(function(d) {
-                return {
-                    "temperature": d3.mean(d, function(g) {
-                        return g.temperature;
-                    }),
-                    "pluie": d3.mean(d, function (g) {
-                        return g.Pluie24;
-                    }),
-                    "neige": d3.mean(d, function (g) {
-                        return g.Neige;
-                    }),
-                    "vent": d3.mean(d, function (g) {
-                        return g.VitesseVent;
-                    })
-                };
-            }).entries(data);*/
-
         data = data.filter(function (d) {
             return parseFloat(d.Coordonnees.split(',')[1]) < 11
                 && parseFloat(d.Coordonnees.split(',')[1]) > -5
@@ -169,7 +150,7 @@ function createMap(indicator, region, time) {
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
                 translation[0] += 0;
-                translation[1] += 20;
+                translation[1] += 15;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
@@ -197,7 +178,7 @@ function createMap(indicator, region, time) {
             })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
-                translation[0] += 20;
+                translation[0] += 15;
                 translation[1] += 0;
                 return "translate(" + translation + ")";
             })
@@ -226,8 +207,8 @@ function createMap(indicator, region, time) {
             })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
-                translation[0] += 20;
-                translation[1] += 20;
+                translation[0] += 15;
+                translation[1] += 15;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
