@@ -13,7 +13,7 @@ You'll also find a video which show our visualisation at [visualisation-video](h
    
 ### Dataset
 
-Our [dataset](https://public.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm/information/?sort=date) comes from the OpendDataSoft website. The dataset gathers many weather features in the French territories since 2010. It was processed in order to filter the undeseried features and agregate them by weeks, mounths or years.
+Our [dataset](https://public.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm/information/?sort=date) comes from the OpendDataSoft website. The dataset gathers many weather features in the French territories since 2010. It was processed in order to filter the undeseried features and agregate them by weeks.
 
 ### Application
 
@@ -48,7 +48,7 @@ Vous pouvez aussi trouver une vidéo de notre présentation sur la [visualisatio
    
 ### Les Données
 
-Nos [données](https://public.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm/information/?sort=date) proviennent du site OpenDataSoft. Le jeu de données comporte un certain nombre d'indicateurs météorologiques sur le territoire français depuis 2010. Un pré-traitement des données a été réalisé, afin de ne garder que les indicateurs utilisés, ainsi qu'une agrégation par semaine, mois, ou années.
+Nos [données](https://public.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm/information/?sort=date) proviennent du site OpenDataSoft. Le jeu de données comporte un certain nombre d'indicateurs météorologiques sur le territoire français depuis 2010. Un pré-traitement des données a été réalisé, afin de ne garder que les indicateurs utilisés, ainsi qu'une agrégation par semaine.
 
 ### Application
 
