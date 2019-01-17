@@ -33,10 +33,6 @@ Something else we noticed is the dramatic increase of rain episodes intensity in
 ![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/rain.PNG)
 
 
-- Faire pull request pour l'envoyer sur la page du cours
-
-![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/thumbnail.png)
-
 # Pluie, Vent, Neige: Comment le climat a-t-il changé en France métropolitaine de 2010 à 2018?
 
 Une visualisation de 4 indicateurs de temps et leurs évolutions en France, par régions, de 2010 à 2018.
