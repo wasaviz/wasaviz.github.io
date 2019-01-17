@@ -69,7 +69,10 @@ Nous avons aussi observé une augmentation importante des averses depuis 2014. O
 ![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/rain.PNG)
 
 # Mail
-CASSAN Océane : 
-COTTET Clément : 
+CASSAN Océane : oceane.cassan@etu.univ-lyon1.fr
+
+COTTET Clément : clement.cottet@etu.univ-lyon1.fr
+
 TEITGEN Raphaël : raphael.teitgen@etu.univ-lyon1.fr
-VERKIN Louise : 
+
+VERKIN Louise : louise.verkin@etu.univ-lyon1.fr
