@@ -2,6 +2,11 @@
 
 A visualization of 4 weather indicators and their changes in France by regions, from 2010 to 2018.
 
+### Context
+
+This project was realized in the framework of our [Data Visualization class](https://lyondataviz.github.io/teaching/lyon1-m2/2018/), tutored by Aurélien Tarbard and Romain Vuillermot. It is part of the formation provided in the Lyon [Artificial Intelligence MASTER](http://master-info.univ-lyon1.fr/IA/#intro).
+
+
 ![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/teaser.png)
 
 The code is avalable in the Wasaviz   [github-repository](https://github.com/wasaviz/wasaviz.github.io.git), and the visualisation can be seen in our [github page](https://wasaviz.github.io/).
@@ -28,8 +33,7 @@ First of all, the different climates in France are visible : the temperatures ar
 Something else we noticed is the dramatic increase of rain episodes intensity in the second half of our timespan. It clearly appears in the rain line charts, but also in the movies of the projection graph involving rain levels.
 ![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/rain.PNG)
 
-### References
-
-This project was realized in the framework of our [Data Visualization class](https://lyondataviz.github.io/teaching/lyon1-m2/2018/), tutored by Aurélien Tarbard and Romain Vuillermot. It is part of the formation provided in the Lyon [Artificial Intelligence MASTER](http://master-info.univ-lyon1.fr/IA/#intro).
 
 - Faire pull request pour l'envoyer sur la page du cours
+
+![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/thumbnail.png)
