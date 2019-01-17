@@ -36,3 +36,40 @@ Something else we noticed is the dramatic increase of rain episodes intensity in
 - Faire pull request pour l'envoyer sur la page du cours
 
 ![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/thumbnail.png)
+
+# Pluie, Vent, Neige: Comment le climat a-t-il changé en France métropolitaine de 2010 à 2018?
+
+Une visualisation de 4 indicateurs de temps et leurs évolutions en France, par régions, de 2010 à 2018.
+
+![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/all.PNG)
+
+Le code est disponible sur wasaviz [github-repository](https://github.com/wasaviz/wasaviz.github.io.git), et la visualisation est visible sur notre [github page](https://wasaviz.github.io/).
+Vous pouvez aussi trouver une vidéo de notre présentation sur la [visualisation-video](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/project_video.mp4).
+   
+### Les Données
+
+Nos [données](https://public.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm/information/?sort=date) proviennent du site OpenDataSoft. Le jeu de données comporte un certain nombre d'indicateurs météorologiques sur le territoire français depuis 2010. Un pré-traitement des données a été réalisé, afin de ne garder que les indicateurs utilisés, ainsi qu'une agrégation par semaine, mois, ou années.
+
+### Application
+
+Nous avons designé une application composée de trois visualisations inter-connectées : 
+
+  - Une **carte de la France**, montrant un indicateur par station météo de notre jeu de données. Ces inicateurs contiennent 4 vaiables, chacune ayant une échelle de couleur différente : température, vent, pluie et neige. Leur intensité varie avec la valeur de la variable. Les bornes min et max utilisées pour chaque indicateur peuvent être retrouvées en bas à droite. Les valeurs correspondent à la période temporelle donnée par le slider de l'application.
+  - Une **projection dans le plan de deux varaibles**. Le but est de montrer les corrélations entre deux indicateurs, à un moment donné. Les variables choisies peuvent être changées, et les axes seront mis à l'échelle si besoin est. L'évolution au cours du temps des stations peut être visualisé en lançant une vidéo sur la période temporelle demandée. 
+  - Un **line chart** peut être utilisé grâce aux deux visualisations précédentes. Il montre l'évolution d'une des quatre variables dans le temps. La variable peut être choisie en passant le curseur sur l'indicateur voulu sur la carte, ou sur la projection. Une ligne verticale montre la position du slider courant.
+
+Les différentes visualisations sont inter-connectées, c'est à dire que lorsque une station est sélectionnée sur une des visualisations, elle l'est aussi sur les autres. 
+
+### Ce que nous avons appris
+
+Tout d'abord, les changements climatiques en france sont visibles : la température est importante sans les régions du Sud, tandis qu'il semble beaucoup pleuvoir en Bretagne et qu'il vente fort. Le niveau de neige est plus important dans les régions de l'Est.
+
+Nous avons aussi observé une augmentation importante des averses depuis 2014. On peut l'observer très clairement sur le line chart, mais aussi sur le film projeté de l'évolution des averses.
+
+![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/rain.PNG)
+
+# Mail
+CASSAN Océane : 
+COTTET Clément : 
+TEITGEN Raphaël : raphael.teitgen@etu.univ-lyon1.fr
+VERKIN Louise : 
