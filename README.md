@@ -1,13 +1,12 @@
 # Rain, wind, snow: how has climate changed in mainland France from 2010 to 2018?
 
-A visualization of 4 weather indicators and their changes in France by regions, from 2010 to 2018.
+
+![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/teaser.png)
+
 
 ### Context
 
 This project was realized in the framework of our [Data Visualization class](https://lyondataviz.github.io/teaching/lyon1-m2/2018/), tutored by Aurélien Tarbard and Romain Vuillermot. It is part of the formation provided in the Lyon [Artificial Intelligence MASTER](http://master-info.univ-lyon1.fr/IA/#intro).
-
-
-![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/teaser.png)
 
 The code is avalable in the Wasaviz   [github-repository](https://github.com/wasaviz/wasaviz.github.io.git), and the visualisation can be seen in our [github page](https://wasaviz.github.io/).
 You'll also find a video which show our visualisation at [visualisation-video](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/project_video.mp4).
