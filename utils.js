@@ -4,7 +4,9 @@ function reduceRect() {
 
     d3.selectAll("rect")
         .transition()
-        .style('stroke-width', 0.5);
+        .style('stroke-width', 0.5)
+        .attr('opacity', 1)
+        .style('z-index', 1);
 
     var gLegend = d3.select("#legend").select("g");
 
@@ -25,9 +27,22 @@ function reduceRect() {
 }
 
 function zoomRect(idStation) {
+    d3.selectAll("rect")
+        .transition()
+        .attr('opacity', 0.3)
+        .style('z-index', 1);
+
+    var gLegend = d3.select("#legend").select("g");
+
+    gLegend.selectAll("rect")
+        .transition(0)
+        .attr("opacity", 1);
+
     d3.selectAll(".id" + idStation)
         .transition()
-        .style('stroke-width', 2);
+        .style('stroke-width', 2)
+        .attr('opacity', 1)
+        .style('z-index', 2);
 }
 
 function translateRect(idStation, lat, lon) {
