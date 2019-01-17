@@ -76,6 +76,21 @@ function createMap(indicator, region, time) {
             return d.vent;
         });
 
+        var size = 20;
+
+        var scale_temperature = d3.scaleLinear()
+            .domain(extent_temperature)
+            .range([5, size]);
+        var scale_neige = d3.scaleLinear()
+            .domain(extent_neige)
+            .range([5, size]);
+        var scale_pluie = d3.scaleLinear()
+            .domain(extent_pluie)
+            .range([5, size]);
+        var scale_vent = d3.scaleLinear()
+            .domain(extent_vent)
+            .range([5, size]);
+
         var color_temperature = d3.scaleLinear().domain(extent_temperature)
             .interpolate(d3.interpolateHcl)
             .range([d3.rgb('#fee0d2'), d3.rgb('#e31a1c')]);
@@ -110,8 +125,12 @@ function createMap(indicator, region, time) {
             .style('fill', function (d) {
                 return color_temperature(d.temperature);
             })
-            .attr('width', 15)
-            .attr('height', 15)
+            .attr('width', function (d) {
+                return scale_temperature(d.temperature);
+            })
+            .attr('height', function (d) {
+                return scale_temperature(d.temperature);
+            })
             .attr("class", function (d) {
                 return "id" + d.IDStation;
             })
@@ -120,8 +139,8 @@ function createMap(indicator, region, time) {
             })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
-                translation[0] += 0;
-                translation[1] += 0;
+                translation[0] += -scale_temperature(d.temperature);
+                translation[1] += -scale_temperature(d.temperature);
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
@@ -139,8 +158,12 @@ function createMap(indicator, region, time) {
             .style('fill', function (d) {
                 return color_neige(d.neige);
             })
-            .attr('width', 15)
-            .attr('height', 15)
+            .attr('width', function (d) {
+                return scale_neige(d.neige);
+            })
+            .attr('height', function (d) {
+                return scale_neige(d.neige);
+            })
             .attr("class", function (d) {
                 return "id" + d.IDStation;
             })
@@ -150,7 +173,7 @@ function createMap(indicator, region, time) {
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
                 translation[0] += 0;
-                translation[1] += 15;
+                translation[1] += -scale_neige(d.neige);
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {
@@ -168,8 +191,12 @@ function createMap(indicator, region, time) {
             .style('fill', function (d) {
                 return color_pluie(d.pluie);
             })
-            .attr('width', 15)
-            .attr('height', 15)
+            .attr('width', function (d) {
+                return scale_pluie(d.pluie);
+            })
+            .attr('height', function (d) {
+                return scale_pluie(d.pluie);
+            })
             .attr("class", function (d) {
                 return "id" + d.IDStation;
             })
@@ -178,7 +205,7 @@ function createMap(indicator, region, time) {
             })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
-                translation[0] += 15;
+                translation[0] += -scale_pluie(d.pluie);
                 translation[1] += 0;
                 return "translate(" + translation + ")";
             })
@@ -197,8 +224,12 @@ function createMap(indicator, region, time) {
             .style('fill', function (d) {
                 return color_vent(d.vent);
             })
-            .attr('width', 15)
-            .attr('height', 15)
+            .attr('width', function (d) {
+                return scale_vent(d.vent);
+            })
+            .attr('height', function (d) {
+                return scale_vent(d.vent);
+            })
             .attr("class", function (d) {
                 return "id" + d.IDStation;
             })
@@ -207,8 +238,8 @@ function createMap(indicator, region, time) {
             })
             .attr("transform", function(d) {
                 var translation = projection([parseFloat(d.Coordonnees.split(',')[1]), parseFloat(d.Coordonnees.split(',')[0])]);
-                translation[0] += 15;
-                translation[1] += 15;
+                translation[0] += 0;
+                translation[1] += 0;
                 return "translate(" + translation + ")";
             })
             .on("mouseover", function(d, i) {

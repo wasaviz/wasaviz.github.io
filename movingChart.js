@@ -115,12 +115,6 @@ d3.csv("newData.csv", function (data) {
             return height - y(d[var_y])-15;
         })
         .on("mouseover", function (d) {
-            d3.selectAll("rect").filter(function (e) {
-                return e === d;
-            })
-                .transition()
-                .attr('width', 40)
-                .attr('height', 40);
             tooltip.classed('hidden', false)
                 .attr('style', 'left:' + (x(d[var_x]) + margin.left + 30) +
                     'px; top:' + (height - y(d[var_y]) - 400) + 'px')
