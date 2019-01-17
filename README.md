@@ -30,11 +30,6 @@ Something else we noticed is the dramatic increase of rain episodes intensity in
 
 ### References
 
-This project was realized in the framework of our Data Visualization class
+This project was realized in the framework of our [Data Visualization class](https://lyondataviz.github.io/teaching/lyon1-m2/2018/), tutored by Aurélien Tarbard and Romain Vuillermot. It is part of the formation provided in the Lyon [Artificial Intelligence MASTER](http://master-info.univ-lyon1.fr/IA/#intro).
 
-- Tout traduire
-- Lien vers le cours
-- Lien vers nos sources
-- Lien vers la formation
-- Faire le thumbnail
 - Faire pull request pour l'envoyer sur la page du cours
