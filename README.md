@@ -1,3 +1,4 @@
+#title-en
 # Rain, wind, snow: how has climate changed in mainland France from 2010 to 2018?
 
 
@@ -15,6 +16,7 @@ You'll also find a video which show our visualisation at [visualisation-video](h
 
 Our [dataset](https://public.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm/information/?sort=date) comes from the OpendDataSoft website. The dataset gathers many weather features in the French territories since 2010. It was processed in order to filter the undeseried features and agregate them by weeks.
 
+#desc-en
 ### Application
 
 We designed an application composed by three connected visualisations :
@@ -33,6 +35,7 @@ Something else we noticed is the dramatic increase of rain episodes intensity in
 ![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/rain.PNG)
 
 
+#title-fr
 # Pluie, Vent, Neige: Comment le climat a-t-il changé en France métropolitaine de 2010 à 2018?
 
 Une visualisation de 4 indicateurs de temps et leurs évolutions en France, par régions, de 2010 à 2018.
@@ -50,6 +53,7 @@ Vous pouvez aussi trouver une vidéo de notre présentation sur la [visualisatio
 
 Nos [données](https://public.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm/information/?sort=date) proviennent du site OpenDataSoft. Le jeu de données comporte un certain nombre d'indicateurs météorologiques sur le territoire français depuis 2010. Un pré-traitement des données a été réalisé, afin de ne garder que les indicateurs utilisés, ainsi qu'une agrégation par semaine.
 
+#desc-fr
 ### Application
 
 Nous avons designé une application composée de trois visualisations inter-connectées : 
