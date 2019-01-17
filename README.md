@@ -19,7 +19,7 @@ Our [dataset](https://public.opendatasoft.com/explore/dataset/donnees-synop-esse
 
 We designed an application composed by three connected visualisations :
 
-  - A **map of France**, showing one indicator by weather station of our dataset. Those indicators contain 4 variables, each in a different color scale : temperature, wind, rain and snow. Their intensity increaases with the value of the variable. The min and max scale values can be seen in the bottom right hand corner. The values correspond to time point given by the gobal slider of the application.
+  - A **map of France**, showing one indicator by weather station of our dataset. Those indicators contain 4 variables, each in a different color scale and a different size : temperature, wind, rain and snow. Their intensity increaases with the value of the variable. The min and max scale values can be seen in the bottom right hand corner. The values correspond to time point given by the gobal slider of the application.
   - A **projection in a plane formed by two variables**. It aims to reveal correlations between two features, at a given time point. Those variables can be changed, and the axis will be rescaled as needed. The temporal evolution of the stations can be shown by launching a movie from the current time point. 
   - A **line chart** that can be accessed from the two previous visualisations. It shows one of the 4 variables in time. The variable can be chosen by hovering over the corresponding part of an indicator of the map, or in the projection graph. A vertical line shows the position of the current slider.
 
@@ -54,7 +54,7 @@ Nos [données](https://public.opendatasoft.com/explore/dataset/donnees-synop-ess
 
 Nous avons designé une application composée de trois visualisations inter-connectées : 
 
-  - Une **carte de la France**, montrant un indicateur par station météo de notre jeu de données. Ces inicateurs contiennent 4 vaiables, chacune ayant une échelle de couleur différente : température, vent, pluie et neige. Leur intensité varie avec la valeur de la variable. Les bornes min et max utilisées pour chaque indicateur peuvent être retrouvées en bas à droite. Les valeurs correspondent à la période temporelle donnée par le slider de l'application.
+  - Une **carte de la France**, montrant un indicateur par station météo de notre jeu de données. Ces inicateurs contiennent 4 vaiables, chacune ayant une échelle de couleur différente et une taille différente : température, vent, pluie et neige. Leur intensité varie avec la valeur de la variable. Les bornes min et max utilisées pour chaque indicateur peuvent être retrouvées en bas à droite. Les valeurs correspondent à la période temporelle donnée par le slider de l'application.
   - Une **projection dans le plan de deux varaibles**. Le but est de montrer les corrélations entre deux indicateurs, à un moment donné. Les variables choisies peuvent être changées, et les axes seront mis à l'échelle si besoin est. L'évolution au cours du temps des stations peut être visualisé en lançant une vidéo sur la période temporelle demandée. 
   - Un **line chart** peut être utilisé grâce aux deux visualisations précédentes. Il montre l'évolution d'une des quatre variables dans le temps. La variable peut être choisie en passant le curseur sur l'indicateur voulu sur la carte, ou sur la projection. Une ligne verticale montre la position du slider courant.
 
