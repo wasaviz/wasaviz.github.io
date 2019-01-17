@@ -41,7 +41,7 @@ Une visualisation de 4 indicateurs de temps et leurs évolutions en France, par 
 
 ### Contexte
 
-Ce projet a été réalise avec le framework de notre [Data Visualization class](https://lyondataviz.github.io/teaching/lyon1-m2/2018/), encadré par Aurélien Tarbard et Romain Vuillermot dans le cadre du [master en intelligence artificielle](http://master-info.univ-lyon1.fr/IA/#intro) de Lyon 1.
+Ce projet a été réalisé avec le contexte de notre [cours de data visualisation](https://lyondataviz.github.io/teaching/lyon1-m2/2018/), encadré par Aurélien Tarbard et Romain Vuillermot dans le cadre du [master en intelligence artificielle](http://master-info.univ-lyon1.fr/IA/#intro) de Lyon 1.
 
 Le code est disponible sur wasaviz [github-repository](https://github.com/wasaviz/wasaviz.github.io.git), et la visualisation est visible sur notre [github page](https://wasaviz.github.io/).
 Vous pouvez aussi trouver une vidéo de notre présentation sur la [visualisation-video](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/project_video.mp4).
