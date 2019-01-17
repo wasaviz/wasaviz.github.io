@@ -2,7 +2,7 @@
 
 A visualization of 4 weather indicators and their changes in France by regions, from 2010 to 2018.
 
-![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/all.PNG)
+![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/teaser.png)
 
 The code is avalable in the Wasaviz   [github-repository](https://github.com/wasaviz/wasaviz.github.io.git), and the visualisation can be seen in our [github page](https://wasaviz.github.io/).
 You'll also find a video which show our visualisation at [visualisation-video](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/project_video.mp4).
