@@ -27,3 +27,14 @@ First of all, the different climates in France are visible : the temperatures ar
 
 Something else we noticed is the dramatic increase of rain episodes intensity in the second half of our timespan. It clearly appears in the rain line charts, but also in the movies of the projection graph involving rain levels.
 ![image](https://github.com/wasaviz/wasaviz.github.io/blob/master/Images_video/rain.PNG)
+
+### References
+
+This project was realized in the framework of our Data Visualization class
+
+- Tout traduire
+- Lien vers le cours
+- Lien vers nos sources
+- Lien vers la formation
+- Faire le thumbnail
+- Faire pull request pour l'envoyer sur la page du cours
